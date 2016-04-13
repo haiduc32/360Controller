@@ -36,6 +36,7 @@
 		3FE789AD1A70288F00FF4065 /* MyDeadZoneViewer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FE789AB1A70288F00FF4065 /* MyDeadZoneViewer.m */; };
 		3FE789B01A70331C00FF4065 /* MyTrigger.h in Headers */ = {isa = PBXBuildFile; fileRef = 3FE789AE1A70331C00FF4065 /* MyTrigger.h */; };
 		3FE789B11A70331C00FF4065 /* MyTrigger.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FE789AF1A70331C00FF4065 /* MyTrigger.m */; };
+		4425D9CA1CBEC22C00652E74 /* OneWirelessGamingReceiver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4425D9C91CBEC22C00652E74 /* OneWirelessGamingReceiver.cpp */; };
 		551CDFF9196EEE76000869B6 /* Pref360ControlPref.xib in Resources */ = {isa = PBXBuildFile; fileRef = 551CDFFB196EEE76000869B6 /* Pref360ControlPref.xib */; };
 		553BDB44196DF3BA00D1F569 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 553BDB43196DF3BA00D1F569 /* IOKit.framework */; };
 		553BDB45196DF41500D1F569 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 553BDB43196DF3BA00D1F569 /* IOKit.framework */; };
@@ -215,6 +216,8 @@
 		3FE789AB1A70288F00FF4065 /* MyDeadZoneViewer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyDeadZoneViewer.m; sourceTree = "<group>"; };
 		3FE789AE1A70331C00FF4065 /* MyTrigger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyTrigger.h; sourceTree = "<group>"; };
 		3FE789AF1A70331C00FF4065 /* MyTrigger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyTrigger.m; sourceTree = "<group>"; };
+		4425D9C81CBEC1AA00652E74 /* OneWirelessGamingReceiver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OneWirelessGamingReceiver.h; sourceTree = "<group>"; };
+		4425D9C91CBEC22C00652E74 /* OneWirelessGamingReceiver.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OneWirelessGamingReceiver.cpp; sourceTree = "<group>"; };
 		551B911F1A68BDB000EA6527 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/Pref360ControlPref.xib; sourceTree = "<group>"; };
 		551CDFFD196EF52F000869B6 /* Pref360Control_Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Pref360Control_Prefix.pch; sourceTree = "<group>"; };
 		551CDFFF196EFD34000869B6 /* Install360Controller.pkgproj */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Install360Controller.pkgproj; sourceTree = "<group>"; };
@@ -656,6 +659,8 @@
 				55B6382218C10EBE00CE933D /* WirelessDevice.cpp */,
 				55B6382518C10EBE00CE933D /* WirelessGamingReceiver.h */,
 				55B6382418C10EBE00CE933D /* WirelessGamingReceiver.cpp */,
+				4425D9C81CBEC1AA00652E74 /* OneWirelessGamingReceiver.h */,
+				4425D9C91CBEC22C00652E74 /* OneWirelessGamingReceiver.cpp */,
 				55B6382A18C10EBE00CE933D /* WirelessHIDDevice.h */,
 				55B6382918C10EBE00CE933D /* WirelessHIDDevice.cpp */,
 				55A2B8E418C11DC5006829A2 /* Resources */,
@@ -1032,6 +1037,7 @@
 			files = (
 				55B6383318C10EBE00CE933D /* WirelessHIDDevice.cpp in Sources */,
 				55B6382F18C10EBE00CE933D /* WirelessDevice.cpp in Sources */,
+				4425D9CA1CBEC22C00652E74 /* OneWirelessGamingReceiver.cpp in Sources */,
 				55B6383118C10EBE00CE933D /* WirelessGamingReceiver.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

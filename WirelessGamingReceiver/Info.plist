@@ -20,6 +20,21 @@
 	<string>${CURRENT_PROJECT_VERSION}</string>
 	<key>IOKitPersonalities</key>
 	<dict>
+		<key>XboxOneReceiverForWindows</key>
+		<dict>
+			<key>CFBundleIdentifier</key>
+			<string>com.mice.driver.WirelessGamingReceiver</string>
+			<key>idProduct</key>
+			<integer>742</integer>
+			<key>idVendor</key>
+			<integer>1118</integer>
+			<key>IOClass</key>
+			<string>OneWirelessGamingReceiver</string>
+			<key>IOKitDebug</key>
+			<integer>65535</integer>
+			<key>IOProviderClass</key>
+			<string>IOUSBDevice</string>
+		</dict>
 		<key>WirelessGamingReceiverForWindows</key>
 		<dict>
 			<key>CFBundleIdentifier</key>
