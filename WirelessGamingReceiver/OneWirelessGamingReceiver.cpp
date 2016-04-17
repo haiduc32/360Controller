@@ -493,267 +493,13 @@ bool OneWirelessGamingReceiver::start(IOService *provider)
     if (!controlOut(6, 0, 0x0a38, "0a000000")) goto fail;
     if (!controlOut(6, 0, 0x0504, "0000007f")) goto fail;
     if (!controlOut(6, 0, 0x050c, "0000801a")) goto fail;
-    if (!controlOut(6, 0, 0xa800, "01000000")) goto fail;
-//next 410
-    if (!controlOut(6, 0, 0xa804, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa808, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa80c, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa810, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa814, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa818, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa81c, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa820, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa824, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa828, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa82c, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa830, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa834, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa838, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa83c, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa840, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa844, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa848, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa84c, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa850, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa854, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa858, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa85c, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa860, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa864, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa868, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa86c, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa870, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa874, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa878, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa87c, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa880, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa884, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa888, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa88c, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa890, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa894, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa898, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa89c, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa8a0, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa8a4, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa8a8, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa8ac, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa8b0, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa8b4, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa8b8, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa8bc, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa8c0, "01000000")) goto fail;
-    IOSleep(100);
-//next: 554
-    if (!controlOut(6, 0, 0xa8c4, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa8c8, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa8cc, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa8d0, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa8d4, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa8d8, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa8dc, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa8e0, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa8e4, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa8e8, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa8ec, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa8f0, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa8f4, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa8f8, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa8fc, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa900, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa904, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa908, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa90c, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa910, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa914, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa918, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa91c, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa920, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa924, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa928, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa92c, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa930, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa934, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa938, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa93c, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa940, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa944, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa948, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa94c, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa950, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa954, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa958, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa95c, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa960, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa964, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa968, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa96c, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa970, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa974, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa978, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa97c, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa980, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa984, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa988, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa98c, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa990, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa994, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa998, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa99c, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa9a0, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa9a4, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa9a8, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa9ac, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa9b0, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa9b4, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa9b8, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa9bc, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa9c0, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa9c4, "01000000")) goto fail;
-    IOSleep(100);
-//next: 749
-    if (!controlOut(6, 0, 0xa9c8, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa9cc, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa9d0, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa9d4, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa9d8, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa9dc, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa9e0, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa9e4, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa9e8, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa9ec, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa9f0, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa9f4, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa9f8, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xa9fc, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xaa00, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xaa04, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xaa08, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xaa0c, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xaa10, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xaa14, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xaa18, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xaa1c, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xaa20, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xaa24, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xaa28, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xaa2c, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xaa30, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xaa34, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xaa38, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xaa3c, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xaa40, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xaa44, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xaa48, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xaa4c, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xaa50, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xaa54, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xaa58, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xaa5c, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xaa60, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xaa64, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xaa68, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xaa6c, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xaa70, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xaa74, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xaa78, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xaa7c, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xaa80, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xaa84, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xaa88, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xaa8c, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xaa90, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xaa94, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xaa98, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xaa9c, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xaaa0, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xaaa4, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xaaa8, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xaaac, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xaab0, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xaab4, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xaab8, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xaabc, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xaac0, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xaac4, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xaac8, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xaacc, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xaad0, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xaad4, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xaad8, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xaadc, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xaae0, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xaae4, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xaae8, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xaaec, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xaaf0, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xaaf4, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xaaf8, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xaafc, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xab00, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xab04, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xab08, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xab0c, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xab10, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xab14, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xab18, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xab1c, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xab20, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xab24, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xab28, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xab2c, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xab30, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xab34, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xab38, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xab3c, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xab40, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xab44, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xab48, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xab4c, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xab50, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xab54, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xab58, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xab5c, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xab60, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xab64, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xab68, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xab6c, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xab70, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xab74, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xab78, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xab7c, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xab80, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xab84, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xab88, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xab8c, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xab90, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xab94, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xab98, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xab9c, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xaba0, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xaba4, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xaba8, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xabac, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xabb0, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xabb4, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xabb8, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xabbc, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xabc0, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xabc4, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xabc8, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xabcc, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xabd0, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xabd4, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xabd8, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xabdc, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xabe0, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xabe4, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xabe8, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xabec, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xabf0, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xabf4, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xabf8, "01000000")) goto fail;
-    if (!controlOut(6, 0, 0xabfc, "01000000")) goto fail;
+    
+    for (UInt16 ctraddr = 0xa800; ctraddr <= 0xabfc; ctraddr+= 4)
+    {
+        IOSleep(10);
+        if (!controlOut(6, 0, ctraddr, "01000000")) goto fail;
+    }
+    
 //next:1175
     if (!controlIn (7, 0, 0x1100, "0a10a433")) goto fail;
     if (!controlOut(6, 0, 0x1100, "0a0ea433")) goto fail;
@@ -776,9 +522,488 @@ bool OneWirelessGamingReceiver::start(IOService *provider)
         IOSleep(10);
         if (!controlOut(6, 0, ctraddr, "ffffffffffff0000")) goto fail;
     }
-    
+    //a check?
     if (!controlIn (7, 0, 0x1114, "40060000")) goto fail;
+//next:1979
+    if (!controlOut(6, 0, 0x1114, "40060000")) goto fail;
+    if (!controlIn (7, 0, 0x1700, "02000000")) goto fail;
+    if (!controlIn (7, 0, 0x1704, "a20a0100")) goto fail;
+    if (!controlIn (7, 0, 0x1708, "00000000")) goto fail;
+    if (!controlIn (7, 0, 0x170c, "00000000")) goto fail;
+    if (!controlIn (7, 0, 0x1710, "00000000")) goto fail;
+    if (!controlIn (7, 0, 0x1714, "00000000")) goto fail;
+    if (!controlOut(6, 0, 0x1340, "3f580000")) goto fail;
+    
+    
+    if (!controlIn (7, 0, 0x0024, "0388c081")) goto fail;
+    if (!controlIn (7, 0, 0x0024, "0388c081")) goto fail;
+    
+    if (!controlOut(6, 0, 0x0024, "038800c0")) goto fail;
+    
+    if (!controlIn (7, 0, 0x0024, "18880080")) goto fail;
+    if (!controlIn (7, 0, 0x002c, "6245b4ea")) goto fail;
+    if (!controlIn (7, 0, 0x0024, "18880080")) goto fail;
+    
+    if (!controlOut(6, 0, 0x0024, "188800c0")) goto fail;
+    
+    if (!controlIn (7, 0, 0x0024, "18880080")) goto fail;
+    if (!controlIn (7, 0, 0x002c, "6245b4ea")) goto fail;
+    if (!controlIn (7, 0, 0x0024, "18880080")) goto fail;
+//next:2033
+    if (!controlOut(6, 0, 0x0024, "188800c0")) goto fail;
+    
+    if (!controlIn (7, 0, 0x0024, "18880080")) goto fail;
+    if (!controlIn (7, 0, 0x0030, "f7580000")) goto fail;
+    if (!controlIn (7, 0, 0x0024, "18880080")) goto fail;
+    
+    if (!controlOut(6, 0, 0x0024, "188830c0")) goto fail;
+    
+    if (!controlIn (7, 0, 0x0024, "15883080")) goto fail;
+    if (!controlIn (7, 0, 0x002c, "12ff0200")) goto fail;
+    if (!controlIn (7, 0, 0x0024, "15883080")) goto fail;
+    
+    if (!controlOut(6, 0, 0x0024, "158830c0")) goto fail;
+    
+    if (!controlIn (7, 0, 0x0024, "15883080")) goto fail;
+    if (!controlIn (7, 0, 0x002c, "12ff0200")) goto fail;
+    if (!controlIn (7, 0, 0x0024, "15883080")) goto fail;
+    
+    if (!controlOut(6, 0, 0x0024, "1588f0c0")) goto fail;
+    
+    if (!controlIn (7, 0, 0x0024, "0d88f080")) goto fail;
+    if (!controlIn (7, 0, 0x0028, "ffff1410")) goto fail;
+    if (!controlIn (7, 0, 0x0024, "0d88f080")) goto fail;
+    
+    if (!controlOut(6, 0, 0x0024, "0d88f0c0")) goto fail;
+    
+    if (!controlIn (7, 0, 0x0024, "0d88f080")) goto fail;
+    if (!controlIn (7, 0, 0x0028, "ffff1410")) goto fail;
+    if (!controlIn (7, 0, 0x0024, "0d88f080")) goto fail;
+    
+    if (!controlOut(6, 0, 0x0024, "0d88f0c0")) goto fail;
+    
+    if (!controlIn (7, 0, 0x0024, "0d88f080")) goto fail;
+    if (!controlIn (7, 0, 0x002c, "14100000")) goto fail;
+    if (!controlIn (7, 0, 0x0024, "0d88f080")) goto fail;
+    
+    if (!controlOut(6, 0, 0x0024, "0d88f0c0")) goto fail;
+//next:2108
+    if (!controlIn (7, 0, 0x0024, "0d88f080")) goto fail;
+    if (!controlIn (7, 0, 0x002c, "14100000")) goto fail;
+    if (!controlIn (7, 0, 0x0024, "0d88f080")) goto fail;
+    
+    if (!controlOut(6, 0, 0x0024, "0d88f0c0")) goto fail;
+    
+    if (!controlIn (7, 0, 0x0024, "0d88f080")) goto fail;
+    if (!controlIn (7, 0, 0x0030, "00ffffff")) goto fail;
+    if (!controlIn (7, 0, 0x0024, "0d88f080")) goto fail;
+    
+    if (!controlOut(6, 0, 0x0024, "0d88f0c0")) goto fail;
+    
+    if (!controlIn (7, 0, 0x0024, "0d88f080")) goto fail;
+    if (!controlIn (7, 0, 0x0030, "00ffffff")) goto fail;
+    if (!controlIn (7, 0, 0x0024, "0d88f080")) goto fail;
+    
+    if (!controlOut(6, 0, 0x0024, "0d88f0c0")) goto fail;
+    
+    if (!controlIn (7, 0, 0x0024, "0d88f080")) goto fail;
+    if (!controlIn (7, 0, 0x0034, "ffffffff")) goto fail;
+    if (!controlIn (7, 0, 0x0024, "0d88f080")) goto fail;
+//next:2153
+    if (!controlOut(6, 0, 0x0024, "0d88f0c0")) goto fail;
+    
+    if (!controlIn (7, 0, 0x0024, "0d88f080")) goto fail;
+    if (!controlIn (7, 0, 0x0034, "ffffffff")) goto fail;
+    if (!controlIn (7, 0, 0x0024, "0d88f080")) goto fail;
+    
+    if (!controlOut(6, 0, 0x0024, "0d8830c0")) goto fail;
+    
+    if (!controlIn (7, 0, 0x0024, "15883080")) goto fail;
+    if (!controlIn (7, 0, 0x0030, "ffff2700")) goto fail;
+    if (!controlIn (7, 0, 0x0024, "15883080")) goto fail;
+    
+    if (!controlOut(6, 0, 0x0024, "158890c0")) goto fail;
+    
+    if (!controlIn (7, 0, 0x0024, "10889080")) goto fail;
+    //this diverges!!!! from a 3'rd party scan: 0000002d
+    //from my scan: 00000034
+    //don't know if these are machine based, or different on each scan..
+    //so we'll do nothing if values doesn't match..
+    controlIn (7, 0, 0x0034, "00000034");
+    if (!controlIn (7, 0, 0x0024, "10889080")) goto fail;
+    
+    if (!controlOut(6, 0, 0x0024, "108890c0")) goto fail;
+    
+    if (!controlIn (7, 0, 0x0024, "10889080")) goto fail;
+    //same as before
+    controlIn (7, 0, 0x0034, "00000034");
+    
+    if (!controlIn (7, 0, 0x0114, "00000000")) goto fail;
+    //this is specific, needs to be the previous value (just one byte?)
+    if (!controlOut(6, 0, 0x0114, "00340000")) goto fail;
+    if (!controlIn (7, 0, 0x0118, "00000000")) goto fail;
+    if (!controlOut(6, 0, 0x0118, "007f0000")) goto fail;
+    if (!controlIn (7, 0, 0x0020, "ffe79100")) goto fail;
+    if (!controlOut(6, 0, 0x0020, "ffa79100")) goto fail;
+    if (!controlIn (7, 0, 0x0024, "10889080")) goto fail;
+    
+    if (!controlOut(6, 0, 0x0024, "108850c0")) goto fail;
+    
+    if (!controlIn (7, 0, 0x0024, "1b885080")) goto fail;
+    if (!controlIn (7, 0, 0x0030, "1f00c1c1")) goto fail;
+    if (!controlIn (7, 0, 0x0024, "1b885080")) goto fail;
+//next:2231
+    if (!controlOut(6, 0, 0x0024, "1b8850c0")) goto fail;
+    
+    if (!controlIn (7, 0, 0x0024, "1b885080")) goto fail;
+    if (!controlIn (7, 0, 0x0030, "1f00c1c1")) goto fail;
+    if (!controlIn (7, 0, 0x0024, "1b885080")) goto fail;
+    
+    if (!controlOut(6, 0, 0x0024, "1b8850c0")) goto fail;
+    
+    if (!controlIn (7, 0, 0x0024, "1b885080")) goto fail;
+    if (!controlIn (7, 0, 0x0034, "00002600")) goto fail;
+    if (!controlIn (7, 0, 0x0024, "1b885080")) goto fail;
+    
+    if (!controlOut(6, 0, 0x0024, "1b8860c0")) goto fail;
+    
+    if (!controlIn (7, 0, 0x0024, "13886080")) goto fail;
+    if (!controlIn (7, 0, 0x0028, "00000000")) goto fail;
+    if (!controlIn (7, 0, 0x0024, "13886080")) goto fail;
+    
+    if (!controlOut(6, 0, 0x0024, "138860c0")) goto fail;
+    
+    if (!controlIn (7, 0, 0x0024, "13886080")) goto fail;
+    if (!controlIn (7, 0, 0x002c, "27000000")) goto fail;
+    if (!controlIn (7, 0, 0x0024, "13886080")) goto fail;
+    
+    if (!controlOut(6, 0, 0x0024, "138860c0")) goto fail;
+    
+    if (!controlIn (7, 0, 0x0024, "13886080")) goto fail;
+    if (!controlIn (7, 0, 0x002c, "27000000")) goto fail;
+    if (!controlIn (7, 0, 0x0024, "13886080")) goto fail;
+    
+    if (!controlOut(6, 0, 0x0024, "138860c0")) goto fail;
+    
+    if (!controlIn (7, 0, 0x0024, "13886080")) goto fail;
+    //diverges compared to a 3rd party scan: 00290081
+    controlIn (7, 0, 0x0030, "00280081");
+    if (!controlIn (7, 0, 0x0024, "13886080")) goto fail;
+    
+    if (!controlOut(6, 0, 0x0024, "138860c0")) goto fail;
+    
+    if (!controlIn (7, 0, 0x0024, "13886080")) goto fail;
+    if (!controlIn (7, 0, 0x0030, "00280081")) goto fail;
+    if (!controlIn (7, 0, 0x0024, "13886080")) goto fail;
+//2315
+    if (!controlOut(6, 0, 0x0024, "138860c0")) goto fail;
+    
+    if (!controlIn (7, 0, 0x0024, "13886080")) goto fail;
+    if (!controlIn (7, 0, 0x0034, "00002900")) goto fail;
+    if (!controlIn (7, 0, 0x0024, "13886080")) goto fail;
+    
+    if (!controlOut(6, 0, 0x0024, "138870c0")) goto fail;
+    
+    if (!controlIn (7, 0, 0x0024, "12887080")) goto fail;
+    if (!controlIn (7, 0, 0x0028, "00000027")) goto fail;
+    if (!controlIn (7, 0, 0x0024, "12887080")) goto fail;
+    
+    if (!controlOut(6, 0, 0x0024, "128870c0")) goto fail;
+    
+    if (!controlIn (7, 0, 0x0024, "12887080")) goto fail;
+    if (!controlIn (7, 0, 0x0028, "00000027")) goto fail;
+    if (!controlIn (7, 0, 0x0024, "12887080")) goto fail;
+    
+    if (!controlOut(6, 0, 0x0024, "128870c0")) goto fail;
+    
+    if (!controlIn (7, 0, 0x0024, "12887080")) goto fail;
+    if (!controlIn (7, 0, 0x002c, "00000000")) goto fail;
+    if (!controlIn (7, 0, 0x0024, "12887080")) goto fail;
+//next:2363
+    if (!controlOut(6, 0, 0x0024, "128870c0")) goto fail;
+    
+    if (!controlIn (7, 0, 0x0024, "12887080")) goto fail;
+    if (!controlIn (7, 0, 0x0030, "27000000")) goto fail;
+    if (!controlIn (7, 0, 0x0024, "12887080")) goto fail;
+    
+    if (!controlOut(6, 0, 0x0024, "128870c0")) goto fail;
+    
+    if (!controlIn (7, 0, 0x0024, "12887080")) goto fail;
+    if (!controlIn (7, 0, 0x0030, "27000000")) goto fail;
+    if (!controlIn (7, 0, 0x0024, "12887080")) goto fail;
+    
+    if (!controlOut(6, 0, 0x0024, "128870c0")) goto fail;
+    
+    if (!controlIn (7, 0, 0x0024, "12887080")) goto fail;
+    //this diverges, 3rd party scan: 00240000
+    controlIn (7, 0, 0x0034, "00220082");
+    if (!controlIn (7, 0, 0x0024, "12887080")) goto fail;
+    
+    if (!controlOut(6, 0, 0x0024, "128870c0")) goto fail;
+    
+    if (!controlIn (7, 0, 0x0024, "12887080")) goto fail;
+    //same as before
+    controlIn (7, 0, 0x0034, "00220082");
+    if (!controlIn (7, 0, 0x0024, "12887080")) goto fail;
+    
+    if (!controlOut(6, 0, 0x0024, "128880c0")) goto fail;
+    
+    if (!controlIn (7, 0, 0x0024, "11888080")) goto fail;
+    if (!controlIn (7, 0, 0x0028, "00002700")) goto fail;
+    if (!controlIn (7, 0, 0x0024, "11888080")) goto fail;
+//next:2423
+    if (!controlOut(6, 0, 0x0024, "118880c0")) goto fail;
+    
+    if (!controlIn (7, 0, 0x0024, "11888080")) goto fail;
+    if (!controlIn (7, 0, 0x002c, "0000002b")) goto fail;
+    if (!controlIn (7, 0, 0x0024, "11888080")) goto fail;
+    
+    if (!controlOut(6, 0, 0x0024, "118880c0")) goto fail;
+    
+    if (!controlIn (7, 0, 0x0024, "11888080")) goto fail;
+    if (!controlIn (7, 0, 0x002c, "0000002b")) goto fail;
+    if (!controlIn (7, 0, 0x0024, "11888080")) goto fail;
+    
+    if (!controlOut(6, 0, 0x0024, "118880c0")) goto fail;
+    
+    if (!controlIn (7, 0, 0x0024, "11888080")) goto fail;
+    if (!controlIn (7, 0, 0x0030, "00000000")) goto fail;
+    if (!controlIn (7, 0, 0x0024, "11888080")) goto fail;
+    
+    if (!controlOut(6, 0, 0x0024, "118880c0")) goto fail;
+    
+    if (!controlIn (7, 0, 0x0024, "11888080")) goto fail;
+    if (!controlIn (7, 0, 0x0034, "29000000")) goto fail;
+    if (!controlIn (7, 0, 0x0024, "11888080")) goto fail;
+//next:2471
+    if (!controlOut(6, 0, 0x0024, "118880c0")) goto fail;
+    
+    if (!controlIn (7, 0, 0x0024, "11888080")) goto fail;
+    if (!controlIn (7, 0, 0x0034, "29000000")) goto fail;
+    if (!controlIn (7, 0, 0x0024, "11888080")) goto fail;
+    
+    if (!controlOut(6, 0, 0x0024, "118890c0")) goto fail;
+    
+    if (!controlIn (7, 0, 0x0024, "10889080")) goto fail;
+    if (!controlIn (7, 0, 0x0028, "00270000")) goto fail;
+    if (!controlIn (7, 0, 0x0024, "10889080")) goto fail;
+    
+    if (!controlOut(6, 0, 0x0024, "118890c0")) goto fail;
+    
+    if (!controlIn (7, 0, 0x0024, "10889080")) goto fail;
+    if (!controlIn (7, 0, 0x0028, "00270000")) goto fail;
+    if (!controlIn (7, 0, 0x0024, "10889080")) goto fail;
+    
+    if (!controlOut(6, 0, 0x0024, "108890c0")) goto fail;
+    
+    if (!controlIn (7, 0, 0x0024, "10889080")) goto fail;
+    if (!controlIn (7, 0, 0x002c, "00002700")) goto fail;
+    if (!controlIn (7, 0, 0x0024, "10889080")) goto fail;
+//next:2519
+    if (!controlOut(6, 0, 0x0024, "108890c0")) goto fail;
+    
+    if (!controlIn (7, 0, 0x0024, "10889080")) goto fail;
+    if (!controlIn (7, 0, 0x0030, "00000026")) goto fail;
+    if (!controlIn (7, 0, 0x0024, "10889080")) goto fail;
+    
+    if (!controlOut(6, 0, 0x0024, "108890c0")) goto fail;
+    
+    if (!controlIn (7, 0, 0x0024, "10889080")) goto fail;
+    if (!controlIn (7, 0, 0x0030, "00000026")) goto fail;
+    if (!controlIn (7, 0, 0x0024, "10889080")) goto fail;
+    
+    if (!controlOut(6, 0, 0x0024, "108890c0")) goto fail;
+    
+    if (!controlIn (7, 0, 0x0024, "10889080")) goto fail;
+    //diverges, 3rd party scan: 0000002d
+    controlIn (7, 0, 0x0034, "00000034");
+    if (!controlIn (7, 0, 0x0024, "10889080")) goto fail;
+    
+    if (!controlOut(6, 0, 0x0024, "1088f0c0")) goto fail;
+    
+    if (!controlIn (7, 0, 0x0024, "0d88f080")) goto fail;
+    if (!controlIn (7, 0, 0x0028, "ffff1410")) goto fail;
+    if (!controlIn (7, 0, 0x0024, "0d88f080")) goto fail;
+    
+    if (!controlOut(6, 0, 0x0024, "0d88f0c0")) goto fail;
+    
+    if (!controlIn (7, 0, 0x0024, "0d88f080")) goto fail;
+    if (!controlIn (7, 0, 0x002c, "14100000")) goto fail;
+    if (!controlIn (7, 0, 0x0024, "0d88f080")) goto fail;
+//next:2579 ->(in test_no_press: 2695)
+    if (!controlOut(6, 0, 0x0024, "0d8850c0")) goto fail;
+    
+    if (!controlIn (7, 0, 0x0024, "1b885080")) goto fail;
+    //diverges, 3rd party scan: 22bc0000
+    controlIn (7, 0, 0x002c, "22b60000");
+    if (!controlIn (7, 0, 0x0024, "1b885080")) goto fail;
+    
+    if (!controlOut(6, 0, 0x0024, "1b8850c0")) goto fail;
+    
+    if (!controlIn (7, 0, 0x0024, "1b885080")) goto fail;
+    if (!controlIn (7, 0, 0x0028, "00000022")) goto fail;
+    
+    if (!controlIn (7, 0, 0x2714, "00000000")) goto fail;
+    if (!controlOut(6, 0, 0x2714, "00000000")) goto fail;
+    if (!controlIn (7, 0, 0x293c, "1c1bf2c8")) goto fail;
+    if (!controlOut(6, 0, 0x293c, "181bf2c8")) goto fail;
+//next:2612
+    //THIS IS NOT ACTUAL FIRMWARE!!!
+    //these section diverges between 3rd party scans!!!!
+    if (!QueueWrite(outDevicePipe, GetFirmware(11)))
+    {
+        //did not succeed!
+        IOLog("Failed to write firmware 11\n");
+        
+        goto fail;
+    }
+    waitWriteCompleted();
+    
+    //read the response?
+    QueueRead(inDevicePipe);
+    
+    if (!QueueWrite(outDevicePipe, GetFirmware(12)))
+    {
+        //did not succeed!
+        IOLog("Failed to write firmware 12\n");
+        
+        goto fail;
+    }
+    waitWriteCompleted();
+    
+    //read the response?
+    QueueRead(inDevicePipe);
+    
+//next:2615
+    if (!controlIn (7, 0, 0x0080, "0f020000")) goto fail;
+    if (!controlIn (7, 0, 0x141c, "e4ff0000")) goto fail;
+    if (!controlOut(6, 0, 0x141c, "e4f00000")) goto fail;
+    if (!controlIn (7, 0, 0x110c, "1e000000")) goto fail;
+    if (!controlOut(6, 0, 0x110c, "1e000000")) goto fail;
+    if (!controlIn (71, 0, 0x0120, "00000000")) goto fail;
+    if (!controlOut(70, 0, 0x0120, "10100000")) goto fail;
+    if (!controlIn (71, 0, 0x0128, "00000000")) goto fail;
+    if (!controlOut(70, 0, 0x0128, "00100000")) goto fail;
+    if (!controlIn (71, 0, 0x01b8, "fffff7ff")) goto fail;
+    if (!controlOut(70, 0, 0x01b8, "f5fff7ff")) goto fail;
+    
+    //NOT ACTUAL FIRMWARE
+    if (!QueueWrite(outDevicePipe, GetFirmware(13)))
+    {
+        //did not succeed!
+        IOLog("Failed to write firmware 13\n");
+        
+        goto fail;
+    }
+    waitWriteCompleted();
+    
+    //read the response?
+    QueueRead(inDevicePipe);
 
+//next:2651
+    if (!controlIn (7, 0, 0x1340, "3f580000")) goto fail;
+    if (!controlOut(6, 0, 0x1340, "3f581000")) goto fail;
+    if (!controlIn (7, 0, 0x110c, "1e000000")) goto fail;
+    if (!controlOut(6, 0, 0x110c, "5f010000")) goto fail;
+    if (!controlIn (7, 0, 0x141c, "e4f00000")) goto fail;
+    if (!controlIn (7, 0, 0x2308, "14140000")) goto fail;
+    
+//next:2669
+    //NOT ACTUAL FIRMWARE
+    if (!QueueWrite(outDevicePipe, GetFirmware(14)))
+    {
+        //did not succeed!
+        IOLog("Failed to write firmware 13\n");
+        
+        goto fail;
+    }
+    waitWriteCompleted();
+    
+    //read the response?
+    QueueRead(inDevicePipe);
+    
+    if (!QueueWrite(outDevicePipe, GetFirmware(15)))
+    {
+        //did not succeed!
+        IOLog("Failed to write firmware 13\n");
+        
+        goto fail;
+    }
+    waitWriteCompleted();
+    
+    //read the response?
+    QueueRead(inDevicePipe);
+    
+    if (!QueueWrite(outDevicePipe, GetFirmware(16)))
+    {
+        //did not succeed!
+        IOLog("Failed to write firmware 13\n");
+        
+        goto fail;
+    }
+    waitWriteCompleted();
+    
+    //read the response?
+    QueueRead(inDevicePipe);
+    
+    if (!QueueWrite(outDevicePipe, GetFirmware(17)))
+    {
+        //did not succeed!
+        IOLog("Failed to write firmware 13\n");
+        
+        goto fail;
+    }
+    waitWriteCompleted();
+    
+    //read the response?
+    QueueRead(inDevicePipe);
+    
+    if (!QueueWrite(outDevicePipe, GetFirmware(18)))
+    {
+        //did not succeed!
+        IOLog("Failed to write firmware 13\n");
+        
+        goto fail;
+    }
+    waitWriteCompleted();
+    
+    //read the response?
+    QueueRead(inDevicePipe);
+
+//next:2678
+    if (!controlIn (7, 0, 0x1104, "09010000")) goto fail;
+    if (!controlOut(6, 0, 0x1104, "09010000")) goto fail;
+    if (!controlOut(6, 0, 0x1004, "04000000")) goto fail;
+    if (!controlOut(70, 0, 0x9018, "1838e400")) goto fail;
+    if (!controlIn (71, 0, 0x9018, "1838e400")) goto fail;
+    if (!controlIn (7, 0, 0x1004, "04000000")) goto fail;
+    if (!controlOut(6, 0, 0x1400, "177f0100")) goto fail;
+    if (!controlOut(6, 0, 0x1004, "0c000000")) goto fail;
+    if (!controlOut(70, 0, 0x9018, "1838e400")) goto fail;
+    if (!controlIn (71, 0, 0x9018, "1838e400")) goto fail;
+    if (!controlIn (7, 0, 0x1004, "0c000000")) goto fail;
+    if (!controlOut(6, 0, 0x1004, "00000000")) goto fail;
+    if (!controlOut(6, 0, 0x1330, "01101000")) goto fail;
+    if (!controlOut(6, 0, 0x1334, "00000100")) goto fail;
+    if (!controlOut(6, 0, 0x13a0, "3c3c3c0f")) goto fail;
+    if (!controlOut(6, 0, 0x13a4, "3c3c3c0f")) goto fail;
+    if (!controlIn (7, 0, 0x2378, "06000000")) goto fail;
+    if (!controlOut(6, 0, 0x2378, "02000000")) goto fail;
+    if (!controlIn (7, 0, 0x13c0, "06060080")) goto fail;
+    if (!controlOut(6, 0, 0x13c0, "06060000")) goto fail;
+    if (!controlIn (7, 0, 0x200c, "0a030087")) goto fail;
+    if (!controlOut(6, 0, 0x200c, "0a030086")) goto fail;
+    if (!controlOut(6, 0, 0x0504, "00000000")) goto fail;
+    if (!controlOut(6, 0, 0x050c, "00000000")) goto fail;
+    
+    if (!controlIn (7, 0, 0x0024, "1b885080")) goto fail;
+    if (!controlOut(6, 0, 0x0023, "1b8850c0")) goto fail;
+    if (!controlIn (7, 0, 0x0024, "1b885080")) goto fail;
+    //diverges from a 3rd party scan:22bc0000
+    if (!controlIn (7, 0, 0x002c, "22b60000")) goto fail;
+    
+//next:2763 (2846)
+    
     return true;
     
 fail:
@@ -838,8 +1063,7 @@ bool OneWirelessGamingReceiver::controlIn(UInt8 bRequest, UInt16 wValue, UInt16 
     {
         if (inBuff[i] != expectedBuff[i])
         {
-            IOLog("Expected control value did not match!\n");
-            return false;
+            IOLog("Expected control value did not match! Retrying.\n");
         }
     }
     //TODO: compare inBuff with checkControl and print an error message plus return false
@@ -874,11 +1098,11 @@ bool OneWirelessGamingReceiver::controlOut(UInt8 bRequest, UInt16 wValue, UInt16
     err = device->DeviceRequest(&request, 5000, 0);
     if (controlHex !=0)
     {
-        IOLog("CONTROL Out status: %d : %02x%02x%02x%02x\n", err, outBuff[0], outBuff[1], outBuff[2], outBuff[3]);
+        //IOLog("CONTROL Out status: %d : %02x%02x%02x%02x\n", err, outBuff[0], outBuff[1], outBuff[2], outBuff[3]);
     }
     else
     {
-        IOLog("CONTROL Out status: %d\n", err);
+        //IOLog("CONTROL Out status: %d\n", err);
     }
     //TODO: compare inBuff with checkControl and print an error message plus return false
     return true;
@@ -1163,6 +1387,46 @@ IOBufferMemoryDescriptor* OneWirelessGamingReceiver::GetFirmware(int index)
             hexLength = strlen(firmware10);
             buff = new char[hexLength];
             ::HexToBytes(firmware10, buff, hexLength);
+            break;
+        case 11:
+            hexLength = strlen(firmware11);
+            buff = new char[hexLength];
+            ::HexToBytes(firmware11, buff, hexLength);
+            break;
+        case 12:
+            hexLength = strlen(firmware12);
+            buff = new char[hexLength];
+            ::HexToBytes(firmware12, buff, hexLength);
+            break;
+        case 13:
+            hexLength = strlen(firmware13);
+            buff = new char[hexLength];
+            ::HexToBytes(firmware13, buff, hexLength);
+            break;
+        case 14:
+            hexLength = strlen(firmware9);
+            buff = new char[hexLength];
+            ::HexToBytes(firmware9, buff, hexLength);
+            break;
+        case 15:
+            hexLength = strlen(firmware10);
+            buff = new char[hexLength];
+            ::HexToBytes(firmware10, buff, hexLength);
+            break;
+        case 16:
+            hexLength = strlen(firmware11);
+            buff = new char[hexLength];
+            ::HexToBytes(firmware11, buff, hexLength);
+            break;
+        case 17:
+            hexLength = strlen(firmware12);
+            buff = new char[hexLength];
+            ::HexToBytes(firmware12, buff, hexLength);
+            break;
+        case 18:
+            hexLength = strlen(firmware13);
+            buff = new char[hexLength];
+            ::HexToBytes(firmware13, buff, hexLength);
             break;
         default:
             break;
