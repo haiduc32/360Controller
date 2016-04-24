@@ -60,7 +60,7 @@ static void HexToBytes(const char input[], unsigned char* output, unsigned long 
 bool OneWirelessGamingReceiver::start(IOService *provider)
 {
     
-    IOLog("WirelessGamingReceiver::start\n");
+    IOLog("OneWirelessGamingReceiver::start\n");
     
     const IOUSBConfigurationDescriptor *cd;
     IOUSBFindInterfaceRequest interfaceRequest;
@@ -76,6 +76,8 @@ bool OneWirelessGamingReceiver::start(IOService *provider)
     
     IOUSBDevRequest	request;
     int err;
+    
+    started = false;
     
     if (!IOService::start(provider))
     {
@@ -155,6 +157,12 @@ bool OneWirelessGamingReceiver::start(IOService *provider)
                     if (pipe->GetEndpointNumber() == 5)
                     {
                         inDevicePipe = pipe;
+                    }
+                    else if (pipe->GetEndpointNumber() == 4)
+                    {
+                        //not sure what exactly this pipe is for.
+                        //it could be for all controllers, or just the first controller detectedd
+                        inCPipe = pipe;
                     }
                     
                     IOLog("Endpoint: %d addr: %d type: %d\n", pipe->GetEndpointNumber(),
@@ -1003,6 +1011,457 @@ bool OneWirelessGamingReceiver::start(IOService *provider)
     if (!controlIn (7, 0, 0x002c, "22b60000")) goto fail;
     
 //next:2763 (2846)
+    if (!QueueWrite(outDevicePipe, GetFirmware("0800fc51020000000000000000000000")))
+    {
+        //did not succeed!
+        IOLog("Failed to write firmware 13\n");
+        
+        goto fail;
+    }
+    
+    //read the response?
+    QueueRead(inDevicePipe);
+    
+    if (!QueueWrite(outDevicePipe, GetFirmware("0800fd51030000000100000000000000")))
+    {
+        //did not succeed!
+        IOLog("Failed to write firmware 13\n");
+        
+        goto fail;
+    }
+    
+    //read the response?
+    QueueRead(inDevicePipe);
+    
+    if (!QueueWrite(outDevicePipe, GetFirmware("0800fe51040000000000000000000000")))
+    {
+        //did not succeed!
+        IOLog("Failed to write firmware 13\n");
+        
+        goto fail;
+    }
+    
+    //read the response?
+    QueueRead(inDevicePipe);
+    
+    if (!controlOut(6, 0, 0x1004, "0c000000")) goto fail;
+    
+    //this diverges from 3rd party scans
+    if (!QueueWrite(outDevicePipe, GetFirmware("1400e151010000000101000000000000000000000020011000000000")))
+    {
+        //did not succeed!
+        IOLog("Failed to write firmware 13\n");
+        
+        goto fail;
+    }
+    
+    //read the response?
+    QueueRead(inDevicePipe);
+    
+    //also diverges
+    if (!QueueWrite(outDevicePipe, GetFirmware("1400e25124000000010100000000000000000000012a011000000000")))
+    {
+        //did not succeed!
+        IOLog("Failed to write firmware 13\n");
+        
+        goto fail;
+    }
+    
+    //read the response?
+    QueueRead(inDevicePipe);
+    
+    if (!QueueWrite(outDevicePipe, GetFirmware("1400e35134000000010100000000000000000000012b011000000000")))
+    {
+        //did not succeed!
+        IOLog("Failed to write firmware 13\n");
+        
+        goto fail;
+    }
+    
+    //read the response?
+    QueueRead(inDevicePipe);
+    
+    if (!QueueWrite(outDevicePipe, GetFirmware("0800f451020000000000000000000000")))
+    {
+        //did not succeed!
+        IOLog("Failed to write firmware 13\n");
+        
+        goto fail;
+    }
+    
+    //read the response?
+    QueueRead(inDevicePipe);
+
+    if (!QueueWrite(outDevicePipe, GetFirmware("1400e551640000000101000000000000000000000227011000000000")))
+    {
+        //did not succeed!
+        IOLog("Failed to write firmware 13\n");
+        
+        goto fail;
+    }
+    
+    //read the response?
+    QueueRead(inDevicePipe);
+    
+    //diverges
+    if (!QueueWrite(outDevicePipe, GetFirmware("1000a650b4134100207b3ceda8134100e08520f400000000")))
+    {
+        //did not succeed!
+        IOLog("Failed to write firmware 13\n");
+        
+        goto fail;
+    }
+    
+    //read the response?
+    QueueRead(inDevicePipe);
+    
+    if (!QueueWrite(outDevicePipe, GetFirmware("1400e751780000000101000000000000000000000227011000000000")))
+    {
+        //did not succeed!
+        IOLog("Failed to write firmware 13\n");
+        
+        goto fail;
+    }
+    
+    //read the response?
+    QueueRead(inDevicePipe);
+    
+    if (!QueueWrite(outDevicePipe, GetFirmware("1000c850b41341000100a489a813410001040f1b00000000")))
+    {
+        //did not succeed!
+        IOLog("Failed to write firmware 13\n");
+        
+        goto fail;
+    }
+    
+    //read the response?
+    QueueRead(inDevicePipe);
+    
+    //diverges
+    if (!QueueWrite(outDevicePipe, GetFirmware("1400e951950000000101000000000000000000000222011000000000")))
+    {
+        //did not succeed!
+        IOLog("Failed to write firmware 13\n");
+        
+        goto fail;
+    }
+    
+    //read the response?
+    QueueRead(inDevicePipe);
+    
+    //diverges
+    if (!QueueWrite(outDevicePipe, GetFirmware("1400ea51010000000101000000000000000000000020010000000000")))
+    {
+        //did not succeed!
+        IOLog("Failed to write firmware 13\n");
+        
+        goto fail;
+    }
+    
+    //read the response?
+    QueueRead(inDevicePipe);
+    
+    if (!QueueWrite(outDevicePipe, GetFirmware("08003b50060000004000000000000000")))
+    {
+        //did not succeed!
+        IOLog("Failed to write firmware 13\n");
+        
+        goto fail;
+    }
+    
+    //read the response?
+    QueueRead(inDevicePipe);
+    
+    //diverges
+    if (!QueueWrite(outDevicePipe, GetFirmware("08008c501411410040066ff700000000")))
+    {
+        //did not succeed!
+        IOLog("Failed to write firmware 13\n");
+        
+        goto fail;
+    }
+    
+    //read the response?
+    QueueRead(inDevicePipe);
+    
+    //diverges
+    if (!QueueWrite(outDevicePipe, GetFirmware("30000805a000002000ff1c00000000000000000000000001a0000000ffffffffffff6245b4ea2d596245b4ea2d5910000200010000000000")))
+    {
+        //did not succeed!
+        IOLog("Failed to write firmware 13\n");
+        
+        goto fail;
+    }
+    
+    //read the response?
+    QueueRead(inDevicePipe);
+    
+    //diverges
+    if (!QueueWrite(outDevicePipe, GetFirmware("08008d501411410040066ff700000000")))
+    {
+        //did not succeed!
+        IOLog("Failed to write firmware 13\n");
+        
+        goto fail;
+    }
+    
+    //read the response?
+    QueueRead(inDevicePipe);
+    
+    //diverges
+    if (!QueueWrite(outDevicePipe, GetFirmware("30000805a000002000ff1c00000000000000000000000001a0000000ffffffffffff6245b4ea2d596245b4ea2d5920000200010000000000")))
+    {
+        //did not succeed!
+        IOLog("Failed to write firmware 13\n");
+        
+        goto fail;
+    }
+    
+    //read the response?
+    QueueRead(inDevicePipe);
+    
+    //diverges
+    if (!QueueWrite(outDevicePipe, GetFirmware("0c008e50081041006245b4ea2d59000000000000")))
+    {
+        //did not succeed!
+        IOLog("Failed to write firmware 13\n");
+        
+        goto fail;
+    }
+    
+    //read the response?
+    QueueRead(inDevicePipe);
+    
+    //diverges
+    if (!QueueWrite(outDevicePipe, GetFirmware("0c008150101041006245b4ea2d59000000000000")))
+    {
+        //did not succeed!
+        IOLog("Failed to write firmware 13\n");
+        
+        goto fail;
+    }
+    
+    //read the response?
+    QueueRead(inDevicePipe);
+    
+    //diverges
+    if (!QueueWrite(outDevicePipe, GetFirmware("0c003250000000006245b4ea2d59000000000000")))
+    {
+        //did not succeed!
+        IOLog("Failed to write firmware 13\n");
+        
+        goto fail;
+    }
+    
+    //read the response?
+    QueueRead(inDevicePipe);
+    
+    if (!QueueWrite(outDevicePipe, GetFirmware("0800835000144100134f010000000000")))
+    {
+        //did not succeed!
+        IOLog("Failed to write firmware 13\n");
+        
+        goto fail;
+    }
+    
+    //read the response?
+    QueueRead(inDevicePipe);
+    
+    //diverges
+    if (!QueueWrite(outDevicePipe, GetFirmware("1400e451010000000101000000000000000000000020010000000000")))
+    {
+        //did not succeed!
+        IOLog("Failed to write firmware 13\n");
+        
+        goto fail;
+    }
+    
+    //read the response?
+    QueueRead(inDevicePipe);
+    
+    //diverges
+    if (!QueueWrite(outDevicePipe, GetFirmware("38000805a000002000ff240000000000000000000000000140000000ffffffffffff6245b4ea2d59ffffffffffff3000000001080c1218243048606c00000000")))
+    {
+        //did not succeed!
+        IOLog("Failed to write firmware 13\n");
+        
+        goto fail;
+    }
+    
+    //read the response?
+    QueueRead(inDevicePipe);
+    
+    //diverges
+    if (!QueueWrite(outDevicePipe, GetFirmware("1800a55030114100a06cefe3341141000000000040114100b81c010000000000")))
+    {
+        //did not succeed!
+        IOLog("Failed to write firmware 13\n");
+        
+        goto fail;
+    }
+    
+    //read the response?
+    QueueRead(inDevicePipe);
+    
+    //diverges
+    if (!QueueWrite(outDevicePipe, GetFirmware("1800a65030114100a06cefe3341141000000000040114100b81c010000000000")))
+    {
+        //did not succeed!
+        IOLog("Failed to write firmware 13\n");
+        
+        goto fail;
+    }
+    
+    //read the response?
+    QueueRead(inDevicePipe);
+    
+    //diverges
+    if (!QueueWrite(outDevicePipe, GetFirmware("1400e751060000000101000000000000000000000022010000000000")))
+    {
+        //did not succeed!
+        IOLog("Failed to write firmware 13\n");
+        
+        goto fail;
+    }
+    
+    //read the response?
+    QueueRead(inDevicePipe);
+    
+    //diverges
+    if (!QueueWrite(outDevicePipe, GetFirmware("38000805a000002000ff240000000000000000000000000140000000ffffffffffff6245b4ea2d59ffffffffffff4000000001080c1218243048606c00000000")))
+    {
+        //did not succeed!
+        IOLog("Failed to write firmware 13\n");
+        
+        goto fail;
+    }
+    
+    //read the response?
+    QueueRead(inDevicePipe);
+    
+    //diverges
+    if (!QueueWrite(outDevicePipe, GetFirmware("1800a85030114100a06cefe334114100f07a20f4401141000101010000000000")))
+    {
+        //did not succeed!
+        IOLog("Failed to write firmware 13\n");
+        
+        goto fail;
+    }
+    
+    //read the response?
+    QueueRead(inDevicePipe);
+    
+    //diverges
+    if (!QueueWrite(outDevicePipe, GetFirmware("1800a95030114100a06cefe334114100f07a20f4401141000101010000000000")))
+    {
+        //did not succeed!
+        IOLog("Failed to write firmware 13\n");
+        
+        goto fail;
+    }
+    
+    //read the response?
+    QueueRead(inDevicePipe);
+    
+//next:2837 (2919) (we might have missed some reads, was too complicated to track..)
+    
+    //diverges
+    if (!QueueWrite(outDevicePipe, GetFirmware("1400ea510b0000000101000000000000000000000022010000000000")))
+    {
+        //did not succeed!
+        IOLog("Failed to write firmware 13\n");
+        
+        goto fail;
+    }
+    
+    //read the response?
+    QueueRead(inDevicePipe);
+    
+    //only for logging
+    IOSleep(100);
+// next optimized for smaller code:
+    //consider diverges as default
+    if (!QueueWriteRead("38000805a000002000ff240000000000000000000000000140000000ffffffffffff6245b4ea2d59ffffffffffff5000000001080c1218243048606c00000000")) goto fail;
+    if (!QueueWriteRead("1800ab5030114100a06cefe334114100f07a20f4401141000101010000000000")) goto fail;
+    if (!QueueWriteRead("1800ac5030114100a06cefe334114100f07a20f4401141000101010000000000")) goto fail;
+    if (!QueueWriteRead("1400ed5124000000010100000000000000000000012a010000000000")) goto fail;
+    if (!QueueWriteRead("38000805a000002000ff240000000000000000000000000140000000ffffffffffff6245b4ea2d59ffffffffffff6000000001080c1218243048606c00000000")) goto fail;
+    if (!QueueWriteRead("1800ae5030114100a06cefe334114100f07a20f4401141000101010000000000")) goto fail;
+    if (!QueueWriteRead("1800a15030114100a06cefe334114100f07a20f4401141000101010000000000")) goto fail;
+    if (!QueueWriteRead("1400e25128000000010100000000000000000000012a000000000000")) goto fail;
+    if (!QueueWriteRead("38000805a000002000ff240000000000000000000000000140000000ffffffffffff6245b4ea2d59ffffffffffff7000000001080c1218243048606c00000000")) goto fail;
+    if (!QueueWriteRead("1800a35030114100a06cefe334114100f07a20f4401141000101010000000000")) goto fail;
+    if (!QueueWriteRead("1800a45030114100a06cefe334114100f07a20f4401141000101010000000000")) goto fail;
+    if (!QueueWriteRead("1400e5512c0000000101000000000000000000000129010000000000")) goto fail;
+    if (!QueueWriteRead("38000805a000002000ff240000000000000000000000000140000000ffffffffffff6245b4ea2d59ffffffffffff8000000001080c1218243048606c00000000")) goto fail;
+    if (!QueueWriteRead("1800a65030114100a06cefe334114100f07a20f4401141000101010000000000")) goto fail;
+    if (!QueueWriteRead("1800a75030114100a06cefe334114100f07a20f4401141000101010000000000")) goto fail;
+    if (!QueueWriteRead("1400e851300000000101000000000000000000000129000000000000")) goto fail;
+    if (!QueueWriteRead("38000805a000002000ff240000000000000000000000000140000000ffffffffffff6245b4ea2d59ffffffffffff9000000001080c1218243048606c00000000")) goto fail;
+    if (!QueueWriteRead("1800a95030114100a06cefe334114100f07a20f4401141000101010000000000")) goto fail;
+    if (!QueueWriteRead("1800aa5030114100a06cefe334114100f07a20f4401141000101010000000000")) goto fail;
+    if (!QueueWriteRead("1400eb51950000000101000000000000000000000222010000000000")) goto fail;
+    if (!QueueWriteRead("38000805a000002000ff240000000000000000000000000140000000ffffffffffff6245b4ea2d59ffffffffffffa000000001080c1218243048606c00000000")) goto fail;
+    if (!QueueWriteRead("1800ac5030114100a06cefe334114100f07a20f4401141000101010000000000")) goto fail;
+    //vs 3d party:------>1800a75030114100d0c2b2053411410060c9900d401141000000000000000000
+    if (!QueueWriteRead("1800ad5030114100a06cefe334114100f07a20f4401141000101010000000000")) goto fail;
+    if (!QueueWriteRead("1400ee51990000000101000000000000000000000222000000000000")) goto fail;
+    if (!QueueWriteRead("38000805a000002000ff240000000000000000000000000140000000ffffffffffff6245b4ea2d59ffffffffffffb000000001080c1218243048606c00000000")) goto fail;
+    if (!QueueWriteRead("1800a15030114100a06cefe334114100f07a20f4401141000101010000000000")) goto fail;
+    if (!QueueWriteRead("1800a25030114100a06cefe334114100f07a20f4401141000101010000000000")) goto fail;
+    //only for logging:
+    IOSleep(100);
+//next: 2881? (double check) (2967)
+    //does not diverge
+    if (!QueueWriteRead("0800f351020000000000000000000000")) goto fail;
+    if (!QueueWriteRead("1000a450b4134100a06cefe3a8134100f07a20f400000000")) goto fail;
+    if (!QueueWriteRead("1000c550b41341000100a489a813410001040f1b00000000")) goto fail;
+    if (!QueueWriteRead("1400e6519d0000000101000000000000000000000220010000000000")) goto fail;
+    if (!QueueWriteRead("38000805a000002000ff240000000000000000000000000140000000ffffffffffff6245b4ea2d59ffffffffffffc000000001080c1218243048606c00000000")) goto fail;
+    if (!QueueWriteRead("1800a75030114100a06cefe334114100f07a20f4401141000101010000000000")) goto fail;
+    if (!QueueWriteRead("1800a85030114100a06cefe334114100f07a20f4401141000101010000000000")) goto fail;
+    
+    if (!QueueWriteRead("1400e951a10000000101000000000000000000000220000000000000")) goto fail;
+    if (!QueueWriteRead("38000805a000002000ff240000000000000000000000000140000000ffffffffffff6245b4ea2d59ffffffffffffd000000001080c1218243048606c00000000")) goto fail;
+    if (!QueueWriteRead("1800aa5030114100a06cefe334114100f07a20f4401141000101010000000000")) goto fail;
+    if (!QueueWriteRead("1800ab5030114100a06cefe334114100f07a20f4401141000101010000000000")) goto fail;
+    if (!QueueWriteRead("38000805a000002000ff240000000000000000000000000140000000ffffffffffff6245b4ea2d59ffffffffffffe000000001080c1218243048606c00000000")) goto fail;
+    if (!QueueWriteRead("1800ac5030114100a06cefe334114100f07a20f4401141000101010000000000")) goto fail;
+    if (!QueueWriteRead("1800ad5030114100a06cefe334114100f07a20f4401141000101010000000000")) goto fail;
+    if (!QueueWriteRead("08008e5000144100177f010000000000")) goto fail;
+    if (!QueueWriteRead("1400e151990000000101000000000000000000000222010000000000")) goto fail;
+    if (!QueueWriteRead("080082501c04410000c0000000000000")) goto fail;
+    if (!QueueWriteRead("5000835000c04100080000200200380000000000000000000000000080000000ffffffffffff6245b4ea2d596245b4ea2d59000088006cf700f8ffff640031c60000dd100050f211011000289d2400000000000000000000")) goto fail;
+    if (!QueueWriteRead("080084501411410040065fec00000000")) goto fail;
+    if (!QueueWriteRead("1800a55030114100a06cefe3341141000000000040114100c41c010000000000")) goto fail;
+    if (!QueueWriteRead("1800a65030114100a06cefe3341141000000000040114100c41c010000000000")) goto fail;
+    if (!QueueWriteRead("08008750240441004048505800000000")) goto fail;
+    if (!QueueWriteRead("3c00885000d24100000000200200220000000000000000000000000070000000ffffffffffff6245b4ea2d596245b4ea2d590000700f1000289d00000000000000000000")) goto fail;
+    if (!QueueWriteRead("08008950240441004048505800000000")) goto fail;
+    if (!QueueWriteRead("3c008a5000d04100000000200200240000000000000000000000000040000000ffffffffffff6245b4ea2d59ffffffffffff0000000001080c1218243048606c00000000")) goto fail;
+    if (!QueueWriteRead("38003b500700000001000000990000000a00000001000000060000000b00000024000000280000002c00000030000000950000009d000000a100000000000000")) goto fail;
+    //for some reason needs a 200msec sleep
+    IOSleep(200);
+    if (!QueueWriteRead("0800fc51020000000000000000000000")) goto fail;
+    if (!QueueWriteRead("1000ad50b4134100a06cefe3a8134100f07a20f400000000")) goto fail;
+//next:2938 (3021)
+    
+    //IOSleep(500);
+    //does not diverge
+    if (!QueueWriteRead("1000ce50b41341000100a489a813410001040f1b00000000")) goto fail;
+    IOSleep(100);
+    
+    IOLog("Started\n");
+    started = true;
+    //we should be receiving a 155 byte packet with 128 byte payload in 0.9 sec with the 4 starting bytes 7880a04a
+    //meaning it has read all the wireless broadcasting devices ( or that it's ready to receive pairing?)
+
+    //
+    
+    //reading from these pipes will be repetitive since we have set the started property to true.
+    //QueueRead(inDevicePipe);
+    QueueRead(inCPipe);
+    //IOSleep(2000);
     
     return true;
     
@@ -1010,6 +1469,23 @@ fail:
     IOLog("fail\n");
     ReleaseAll();
     return false;
+}
+
+bool OneWirelessGamingReceiver::QueueWriteRead(const char payload[])
+{
+    if (!QueueWrite(outDevicePipe, GetFirmware(payload)))
+    {
+        //did not succeed!
+        IOLog("Failed to write firmware 13\n");
+        
+        return false;;
+    }
+    
+    //read the response?
+    QueueRead(inDevicePipe);
+    waitReadCompleted();
+    
+    return true;
 }
 
 void OneWirelessGamingReceiver::waitWriteCompleted()
@@ -1154,6 +1630,7 @@ bool OneWirelessGamingReceiver::QueueRead(IOUSBPipe *pipe)
     IOReturn err;
     WGRREAD *data = (WGRREAD*)IOMalloc(sizeof(WGRREAD));
     
+    
     if (data == NULL)
         return false;
     
@@ -1185,17 +1662,19 @@ void OneWirelessGamingReceiver::ReadComplete(void *parameter, IOReturn status, U
 {
     IOLog("ReadComplete\n");
     WGRREAD *data = (WGRREAD*)parameter;
-    bool reread = true;
+    //we should read recursively only if we already started
+    bool reread = started;
+    IOUSBPipe *pipe = data != 0 ? data->pipe : 0;
     
     switch (status)
     {
         case kIOReturnOverrun:
             IOLog("read - kIOReturnOverrun, clearing stall\n");
+            //TODO: figure out what to do!
             //connections[data->index].controllerIn->ClearStall();
             // fall through
             break;
         case kIOReturnSuccess:
-            //TODO: something..
             ProcessMessage((unsigned char*)data->buffer->getBytesNoCopy(), (int)data->buffer->getLength() - bufferSizeRemaining);
             break;
             
@@ -1213,13 +1692,16 @@ void OneWirelessGamingReceiver::ReadComplete(void *parameter, IOReturn status, U
     data->buffer->release();
     IOFree(data, sizeof(WGRREAD));
     
-    //if (reread)
-    //    QueueRead(newIndex);
+    if (reread)
+    {
+        IOLog("Re-read set: %d\n", pipe);
+    }
+    //    QueueRead(data->pipe);
 }
 
 bool OneWirelessGamingReceiver::QueueWrite(IOUSBPipe *pipe, IOBufferMemoryDescriptor *outBuffer)
 {
-    IOLog("QueueWrite\n");
+    //IOLog("QueueWrite\n");
     IOUSBCompletion complete;
     IOReturn err;
     
@@ -1244,7 +1726,7 @@ bool OneWirelessGamingReceiver::QueueWrite(IOUSBPipe *pipe, IOBufferMemoryDescri
 // Handle a completed write on a controller
 void OneWirelessGamingReceiver::WriteComplete(void *parameter,IOReturn status,UInt32 bufferSizeRemaining)
 {
-    IOLog("WriteComplete\n");
+    //IOLog("WriteComplete\n");
     IOMemoryDescriptor *memory=(IOMemoryDescriptor*)parameter;
     if(status!=kIOReturnSuccess) {
         IOLog("write - Error writing: 0x%.8x\n",status);
@@ -1269,7 +1751,7 @@ void OneWirelessGamingReceiver::ReleaseAll(void)
 // Static wrapper for read notifications
 void OneWirelessGamingReceiver::_ReadComplete(void *target, void *parameter, IOReturn status, UInt32 bufferSizeRemaining)
 {
-    IOLog("_ReadComplete\n");
+    //IOLog("_ReadComplete\n");
     if (target != NULL)
         ((OneWirelessGamingReceiver*)target)->ReadComplete(parameter, status, bufferSizeRemaining);
 }
@@ -1277,7 +1759,7 @@ void OneWirelessGamingReceiver::_ReadComplete(void *target, void *parameter, IOR
 // Static wrapper for write notifications
 void OneWirelessGamingReceiver::_WriteComplete(void *target, void *parameter, IOReturn status, UInt32 bufferSizeRemaining)
 {
-    IOLog("_WriteComplete\n");
+    //IOLog("_WriteComplete\n");
     if (target != NULL)
         ((OneWirelessGamingReceiver*)target)->WriteComplete(parameter, status, bufferSizeRemaining);
 }
@@ -1298,6 +1780,25 @@ void OneWirelessGamingReceiver::ProcessMessage(const unsigned char *data, int le
     }
     s[i * 2] = '\0';
     IOLog("Got data (%d bytes): %s\n", length, s);
+    //0400404A - button press on the wireless adapter
+    if (data[0] == 0x04 && data[1] == 0x00 && data[2] == 0x40 && data[3] == 0x4A)
+    {
+        IOLog("Received adapter button press (fireworks, rainbows and unicorns)");
+        QueueWrite(outDevicePipe, GetFirmware("040000510000000000000000"));
+        QueueWrite(outDevicePipe, GetFirmware("080081501411410040060f0000000000"));
+        QueueRead(inDevicePipe);
+        QueueWrite(outDevicePipe, GetFirmware("1800825038c041000000dd100050f2110110019d289900000000000000000000"));
+        QueueWrite(outDevicePipe, GetFirmware("080083501411410040063f6400000000"));
+        
+    }
+    else if (data[0] == 0x48 && data[1] == 0x00 && data[2] == 0x08 && data[3] == 0x00)
+    {
+        //TODO: set a signal that we are pairing (so we don't send ping messages)?
+        IOSleep(500);
+        IOLog("Received pairing signal!!!! freaking unikorns shooting rainbows!");
+        
+        
+    }
 //#endif
     //IOLog("Got data (%d bytes)\n", length);
     
@@ -1330,6 +1831,8 @@ OSNumber* OneWirelessGamingReceiver::newLocationIDNumber() const
     
     return OSNumber::withNumber(location, 32);
 }
+
+
 
 IOBufferMemoryDescriptor* OneWirelessGamingReceiver::GetFirmware(int index)
 {
@@ -1439,5 +1942,21 @@ IOBufferMemoryDescriptor* OneWirelessGamingReceiver::GetFirmware(int index)
     
     return outBuffer;
 }
+
+IOBufferMemoryDescriptor* OneWirelessGamingReceiver::GetFirmware(const char input[])
+{
+    char* buff;
+    unsigned long hexLength;
+    IOBufferMemoryDescriptor* outBuffer;
+    
+    hexLength = strlen(input);
+    buff = new char[hexLength];
+    ::HexToBytes(input, buff, hexLength);
+    outBuffer = IOBufferMemoryDescriptor::inTaskWithOptions(kernel_task, 0, hexLength/2);
+    outBuffer->writeBytes(0, buff, hexLength/2);
+    
+    return outBuffer;
+}
+
 
 

@@ -76,12 +76,16 @@ public:
 private:
     bool QueueWrite(IOUSBPipe *pipe, IOBufferMemoryDescriptor *outBuffer);
     
+    bool QueueWriteRead(const char payload[]);
+    
 private:
     bool deviceWriteCompleted;
     bool deviceReadCompleted;
+    bool started;
     IOUSBDevice *device;
     IOUSBPipe *outDevicePipe;
     IOUSBPipe *inDevicePipe;
+    IOUSBPipe *inCPipe;
     
     void waitWriteCompleted();
     void waitReadCompleted();
@@ -98,6 +102,7 @@ private:
     bool didTerminate(IOService *provider, IOOptionBits options, bool *defer);
     
     IOBufferMemoryDescriptor* GetFirmware(int index);
+    IOBufferMemoryDescriptor* GetFirmware(const char input[]);
     
     bool controlIn(UInt8 bRequest, UInt16 wValue, UInt16 wIndex, const char checkControlHex[]);
     bool controlOut(UInt8 bRequest, UInt16 wValue, UInt16 wIndex, const char controlHex[]);
