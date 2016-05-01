@@ -209,6 +209,8 @@ bool OneWirelessGamingReceiver::start(IOService *provider)
     err = device->DeviceRequest(&request, 5000, 0);
     IOLog("SET_CONFIG status: %d\n", err);
     
+    QueueRead(inDevicePipe);
+    QueueRead(inCPipe);
     
     
     // send CONTROL request on the bus
@@ -425,9 +427,9 @@ bool OneWirelessGamingReceiver::start(IOService *provider)
     
     //need to read from endpoint 5.. 3 packets..
     
-    QueueRead(inDevicePipe);
-    QueueRead(inDevicePipe);
-    QueueRead(inDevicePipe);
+    //QueueRead(inDevicePipe);
+    //QueueRead(inDevicePipe);
+    //QueueRead(inDevicePipe);
     
     if (!controlIn (7, 0, 0x0038, "98023b01")) goto fail;
     if (!controlOut(6, 0, 0x0038, "98023b01")) goto fail;
@@ -868,7 +870,7 @@ bool OneWirelessGamingReceiver::start(IOService *provider)
     waitWriteCompleted();
     
     //read the response?
-    QueueRead(inDevicePipe);
+    //QueueRead(inDevicePipe);
     
     if (!QueueWrite(outDevicePipe, GetFirmware(12)))
     {
@@ -880,7 +882,7 @@ bool OneWirelessGamingReceiver::start(IOService *provider)
     waitWriteCompleted();
     
     //read the response?
-    QueueRead(inDevicePipe);
+    //QueueRead(inDevicePipe);
     
 //next:2615
     if (!controlIn (7, 0, 0x0080, "0f020000")) goto fail;
@@ -906,7 +908,7 @@ bool OneWirelessGamingReceiver::start(IOService *provider)
     waitWriteCompleted();
     
     //read the response?
-    QueueRead(inDevicePipe);
+    //QueueRead(inDevicePipe);
 
 //next:2651
     if (!controlIn (7, 0, 0x1340, "3f580000")) goto fail;
@@ -928,7 +930,7 @@ bool OneWirelessGamingReceiver::start(IOService *provider)
     waitWriteCompleted();
     
     //read the response?
-    QueueRead(inDevicePipe);
+    //QueueRead(inDevicePipe);
     
     if (!QueueWrite(outDevicePipe, GetFirmware(15)))
     {
@@ -940,7 +942,7 @@ bool OneWirelessGamingReceiver::start(IOService *provider)
     waitWriteCompleted();
     
     //read the response?
-    QueueRead(inDevicePipe);
+    //QueueRead(inDevicePipe);
     
     if (!QueueWrite(outDevicePipe, GetFirmware(16)))
     {
@@ -952,7 +954,7 @@ bool OneWirelessGamingReceiver::start(IOService *provider)
     waitWriteCompleted();
     
     //read the response?
-    QueueRead(inDevicePipe);
+    //QueueRead(inDevicePipe);
     
     if (!QueueWrite(outDevicePipe, GetFirmware(17)))
     {
@@ -964,7 +966,7 @@ bool OneWirelessGamingReceiver::start(IOService *provider)
     waitWriteCompleted();
     
     //read the response?
-    QueueRead(inDevicePipe);
+    //QueueRead(inDevicePipe);
     
     if (!QueueWrite(outDevicePipe, GetFirmware(18)))
     {
@@ -976,7 +978,7 @@ bool OneWirelessGamingReceiver::start(IOService *provider)
     waitWriteCompleted();
     
     //read the response?
-    QueueRead(inDevicePipe);
+    //QueueRead(inDevicePipe);
 
 //next:2678
     if (!controlIn (7, 0, 0x1104, "09010000")) goto fail;
@@ -1020,7 +1022,7 @@ bool OneWirelessGamingReceiver::start(IOService *provider)
     }
     
     //read the response?
-    QueueRead(inDevicePipe);
+    //QueueRead(inDevicePipe);
     
     if (!QueueWrite(outDevicePipe, GetFirmware("0800fd51030000000100000000000000")))
     {
@@ -1031,7 +1033,7 @@ bool OneWirelessGamingReceiver::start(IOService *provider)
     }
     
     //read the response?
-    QueueRead(inDevicePipe);
+    //QueueRead(inDevicePipe);
     
     if (!QueueWrite(outDevicePipe, GetFirmware("0800fe51040000000000000000000000")))
     {
@@ -1042,7 +1044,7 @@ bool OneWirelessGamingReceiver::start(IOService *provider)
     }
     
     //read the response?
-    QueueRead(inDevicePipe);
+    //QueueRead(inDevicePipe);
     
     if (!controlOut(6, 0, 0x1004, "0c000000")) goto fail;
     
@@ -1056,7 +1058,7 @@ bool OneWirelessGamingReceiver::start(IOService *provider)
     }
     
     //read the response?
-    QueueRead(inDevicePipe);
+    //QueueRead(inDevicePipe);
     
     //also diverges
     if (!QueueWrite(outDevicePipe, GetFirmware("1400e25124000000010100000000000000000000012a011000000000")))
@@ -1068,7 +1070,7 @@ bool OneWirelessGamingReceiver::start(IOService *provider)
     }
     
     //read the response?
-    QueueRead(inDevicePipe);
+    //QueueRead(inDevicePipe);
     
     if (!QueueWrite(outDevicePipe, GetFirmware("1400e35134000000010100000000000000000000012b011000000000")))
     {
@@ -1079,7 +1081,7 @@ bool OneWirelessGamingReceiver::start(IOService *provider)
     }
     
     //read the response?
-    QueueRead(inDevicePipe);
+    //QueueRead(inDevicePipe);
     
     if (!QueueWrite(outDevicePipe, GetFirmware("0800f451020000000000000000000000")))
     {
@@ -1090,7 +1092,7 @@ bool OneWirelessGamingReceiver::start(IOService *provider)
     }
     
     //read the response?
-    QueueRead(inDevicePipe);
+    //QueueRead(inDevicePipe);
 
     if (!QueueWrite(outDevicePipe, GetFirmware("1400e551640000000101000000000000000000000227011000000000")))
     {
@@ -1101,7 +1103,7 @@ bool OneWirelessGamingReceiver::start(IOService *provider)
     }
     
     //read the response?
-    QueueRead(inDevicePipe);
+    //QueueRead(inDevicePipe);
     
     //diverges
     if (!QueueWrite(outDevicePipe, GetFirmware("1000a650b4134100207b3ceda8134100e08520f400000000")))
@@ -1113,7 +1115,7 @@ bool OneWirelessGamingReceiver::start(IOService *provider)
     }
     
     //read the response?
-    QueueRead(inDevicePipe);
+    //QueueRead(inDevicePipe);
     
     if (!QueueWrite(outDevicePipe, GetFirmware("1400e751780000000101000000000000000000000227011000000000")))
     {
@@ -1124,7 +1126,7 @@ bool OneWirelessGamingReceiver::start(IOService *provider)
     }
     
     //read the response?
-    QueueRead(inDevicePipe);
+    //QueueRead(inDevicePipe);
     
     if (!QueueWrite(outDevicePipe, GetFirmware("1000c850b41341000100a489a813410001040f1b00000000")))
     {
@@ -1135,7 +1137,7 @@ bool OneWirelessGamingReceiver::start(IOService *provider)
     }
     
     //read the response?
-    QueueRead(inDevicePipe);
+    //QueueRead(inDevicePipe);
     
     //diverges
     if (!QueueWrite(outDevicePipe, GetFirmware("1400e951950000000101000000000000000000000222011000000000")))
@@ -1147,7 +1149,7 @@ bool OneWirelessGamingReceiver::start(IOService *provider)
     }
     
     //read the response?
-    QueueRead(inDevicePipe);
+    //QueueRead(inDevicePipe);
     
     //diverges
     if (!QueueWrite(outDevicePipe, GetFirmware("1400ea51010000000101000000000000000000000020010000000000")))
@@ -1159,7 +1161,7 @@ bool OneWirelessGamingReceiver::start(IOService *provider)
     }
     
     //read the response?
-    QueueRead(inDevicePipe);
+    //QueueRead(inDevicePipe);
     
     if (!QueueWrite(outDevicePipe, GetFirmware("08003b50060000004000000000000000")))
     {
@@ -1170,7 +1172,7 @@ bool OneWirelessGamingReceiver::start(IOService *provider)
     }
     
     //read the response?
-    QueueRead(inDevicePipe);
+    //QueueRead(inDevicePipe);
     
     //diverges
     if (!QueueWrite(outDevicePipe, GetFirmware("08008c501411410040066ff700000000")))
@@ -1182,7 +1184,7 @@ bool OneWirelessGamingReceiver::start(IOService *provider)
     }
     
     //read the response?
-    QueueRead(inDevicePipe);
+    //QueueRead(inDevicePipe);
     
     //diverges
     if (!QueueWrite(outDevicePipe, GetFirmware("30000805a000002000ff1c00000000000000000000000001a0000000ffffffffffff6245b4ea2d596245b4ea2d5910000200010000000000")))
@@ -1194,7 +1196,7 @@ bool OneWirelessGamingReceiver::start(IOService *provider)
     }
     
     //read the response?
-    QueueRead(inDevicePipe);
+    //QueueRead(inDevicePipe);
     
     //diverges
     if (!QueueWrite(outDevicePipe, GetFirmware("08008d501411410040066ff700000000")))
@@ -1206,7 +1208,7 @@ bool OneWirelessGamingReceiver::start(IOService *provider)
     }
     
     //read the response?
-    QueueRead(inDevicePipe);
+    //QueueRead(inDevicePipe);
     
     //diverges
     if (!QueueWrite(outDevicePipe, GetFirmware("30000805a000002000ff1c00000000000000000000000001a0000000ffffffffffff6245b4ea2d596245b4ea2d5920000200010000000000")))
@@ -1218,7 +1220,7 @@ bool OneWirelessGamingReceiver::start(IOService *provider)
     }
     
     //read the response?
-    QueueRead(inDevicePipe);
+    //QueueRead(inDevicePipe);
     
     //diverges
     if (!QueueWrite(outDevicePipe, GetFirmware("0c008e50081041006245b4ea2d59000000000000")))
@@ -1230,7 +1232,7 @@ bool OneWirelessGamingReceiver::start(IOService *provider)
     }
     
     //read the response?
-    QueueRead(inDevicePipe);
+    //QueueRead(inDevicePipe);
     
     //diverges
     if (!QueueWrite(outDevicePipe, GetFirmware("0c008150101041006245b4ea2d59000000000000")))
@@ -1242,7 +1244,7 @@ bool OneWirelessGamingReceiver::start(IOService *provider)
     }
     
     //read the response?
-    QueueRead(inDevicePipe);
+    //QueueRead(inDevicePipe);
     
     //diverges
     if (!QueueWrite(outDevicePipe, GetFirmware("0c003250000000006245b4ea2d59000000000000")))
@@ -1254,7 +1256,7 @@ bool OneWirelessGamingReceiver::start(IOService *provider)
     }
     
     //read the response?
-    QueueRead(inDevicePipe);
+    //QueueRead(inDevicePipe);
     
     if (!QueueWrite(outDevicePipe, GetFirmware("0800835000144100134f010000000000")))
     {
@@ -1265,7 +1267,7 @@ bool OneWirelessGamingReceiver::start(IOService *provider)
     }
     
     //read the response?
-    QueueRead(inDevicePipe);
+    //QueueRead(inDevicePipe);
     
     //diverges
     if (!QueueWrite(outDevicePipe, GetFirmware("1400e451010000000101000000000000000000000020010000000000")))
@@ -1277,7 +1279,7 @@ bool OneWirelessGamingReceiver::start(IOService *provider)
     }
     
     //read the response?
-    QueueRead(inDevicePipe);
+    //QueueRead(inDevicePipe);
     
     //diverges
     if (!QueueWrite(outDevicePipe, GetFirmware("38000805a000002000ff240000000000000000000000000140000000ffffffffffff6245b4ea2d59ffffffffffff3000000001080c1218243048606c00000000")))
@@ -1289,7 +1291,7 @@ bool OneWirelessGamingReceiver::start(IOService *provider)
     }
     
     //read the response?
-    QueueRead(inDevicePipe);
+    //QueueRead(inDevicePipe);
     
     //diverges
     if (!QueueWrite(outDevicePipe, GetFirmware("1800a55030114100a06cefe3341141000000000040114100b81c010000000000")))
@@ -1301,7 +1303,7 @@ bool OneWirelessGamingReceiver::start(IOService *provider)
     }
     
     //read the response?
-    QueueRead(inDevicePipe);
+    //QueueRead(inDevicePipe);
     
     //diverges
     if (!QueueWrite(outDevicePipe, GetFirmware("1800a65030114100a06cefe3341141000000000040114100b81c010000000000")))
@@ -1313,7 +1315,7 @@ bool OneWirelessGamingReceiver::start(IOService *provider)
     }
     
     //read the response?
-    QueueRead(inDevicePipe);
+    //QueueRead(inDevicePipe);
     
     //diverges
     if (!QueueWrite(outDevicePipe, GetFirmware("1400e751060000000101000000000000000000000022010000000000")))
@@ -1325,7 +1327,7 @@ bool OneWirelessGamingReceiver::start(IOService *provider)
     }
     
     //read the response?
-    QueueRead(inDevicePipe);
+    //QueueRead(inDevicePipe);
     
     //diverges
     if (!QueueWrite(outDevicePipe, GetFirmware("38000805a000002000ff240000000000000000000000000140000000ffffffffffff6245b4ea2d59ffffffffffff4000000001080c1218243048606c00000000")))
@@ -1337,7 +1339,7 @@ bool OneWirelessGamingReceiver::start(IOService *provider)
     }
     
     //read the response?
-    QueueRead(inDevicePipe);
+    //QueueRead(inDevicePipe);
     
     //diverges
     if (!QueueWrite(outDevicePipe, GetFirmware("1800a85030114100a06cefe334114100f07a20f4401141000101010000000000")))
@@ -1349,7 +1351,7 @@ bool OneWirelessGamingReceiver::start(IOService *provider)
     }
     
     //read the response?
-    QueueRead(inDevicePipe);
+    //QueueRead(inDevicePipe);
     
     //diverges
     if (!QueueWrite(outDevicePipe, GetFirmware("1800a95030114100a06cefe334114100f07a20f4401141000101010000000000")))
@@ -1361,7 +1363,7 @@ bool OneWirelessGamingReceiver::start(IOService *provider)
     }
     
     //read the response?
-    QueueRead(inDevicePipe);
+    //QueueRead(inDevicePipe);
     
 //next:2837 (2919) (we might have missed some reads, was too complicated to track..)
     
@@ -1375,7 +1377,7 @@ bool OneWirelessGamingReceiver::start(IOService *provider)
     }
     
     //read the response?
-    QueueRead(inDevicePipe);
+    //QueueRead(inDevicePipe);
     
     //only for logging
     IOSleep(100);
@@ -1449,6 +1451,7 @@ bool OneWirelessGamingReceiver::start(IOService *provider)
     //IOSleep(500);
     //does not diverge
     if (!QueueWriteRead("1000ce50b41341000100a489a813410001040f1b00000000")) goto fail;
+    //don't really need this sleep. I think..
     IOSleep(100);
     
     IOLog("Started\n");
@@ -1460,7 +1463,7 @@ bool OneWirelessGamingReceiver::start(IOService *provider)
     
     //reading from these pipes will be repetitive since we have set the started property to true.
     //QueueRead(inDevicePipe);
-    QueueRead(inCPipe);
+    
     //IOSleep(2000);
     
     return true;
@@ -1482,8 +1485,7 @@ bool OneWirelessGamingReceiver::QueueWriteRead(const char payload[])
     }
     
     //read the response?
-    QueueRead(inDevicePipe);
-    waitReadCompleted();
+    //QueueRead(inDevicePipe);
     
     return true;
 }
@@ -1663,7 +1665,7 @@ void OneWirelessGamingReceiver::ReadComplete(void *parameter, IOReturn status, U
     IOLog("ReadComplete\n");
     WGRREAD *data = (WGRREAD*)parameter;
     //we should read recursively only if we already started
-    bool reread = started;
+    bool reread = true;
     IOUSBPipe *pipe = data != 0 ? data->pipe : 0;
     
     switch (status)
@@ -1681,7 +1683,7 @@ void OneWirelessGamingReceiver::ReadComplete(void *parameter, IOReturn status, U
         case kIOReturnNotResponding:
             IOLog("read - kIOReturnNotResponding\n");
             // fall through
-            break;
+            //break;
         default:
             IOLog("Unknown status: %d\n", status);
             reread = false;
@@ -1695,8 +1697,18 @@ void OneWirelessGamingReceiver::ReadComplete(void *parameter, IOReturn status, U
     if (reread)
     {
         IOLog("Re-read set: %d\n", pipe);
+        if (pipe->GetEndpoint()->number == inCPipe->GetEndpoint()->number)
+        //IOSleep(1000);
+        {
+            IOLog("Reading from inCPipe ref: %d\n", inCPipe);
+            QueueRead(inCPipe);
+        }
+        else if (pipe->GetEndpoint()->number == inDevicePipe->GetEndpoint()->number)
+        {
+            IOLog("Reading from inDevicePipe ref: %d\n", inDevicePipe);
+            QueueRead(inDevicePipe);
+        }
     }
-    //    QueueRead(data->pipe);
 }
 
 bool OneWirelessGamingReceiver::QueueWrite(IOUSBPipe *pipe, IOBufferMemoryDescriptor *outBuffer)
