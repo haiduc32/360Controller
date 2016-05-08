@@ -56,6 +56,17 @@ static void HexToBytes(const char input[], unsigned char* output, unsigned long 
     }
 }
 
+bool CompareSignature(const unsigned char message[], const char signature[])
+{
+    unsigned char signatureBytes[4];
+    HexToBytes(signature, signatureBytes, 8);
+    
+    return (message[0] == signatureBytes[0] &&
+            message[1] == signatureBytes[1] &&
+            message[2] == signatureBytes[2] &&
+            message[3] == signatureBytes[3]);
+}
+
 // Start device
 bool OneWirelessGamingReceiver::start(IOService *provider)
 {
@@ -66,12 +77,14 @@ bool OneWirelessGamingReceiver::start(IOService *provider)
     IOUSBFindInterfaceRequest interfaceRequest;
     IOUSBFindEndpointRequest pipeRequest;
     IOUSBInterface *interface;
-    int iConnection, iOther, i;
+    int iConnection, iOther;
     IOUSBPipe *pipe = NULL;
     
     char outBuff[4];
     char outHex[] = "098840c0";
     HexToBytes(outHex, outBuff, 8);
+    
+    pairingLock = IOLockAlloc();
     
     
     IOUSBDevRequest	request;
@@ -1198,7 +1211,7 @@ bool OneWirelessGamingReceiver::controlIn(UInt8 bRequest, UInt16 wValue, UInt16 
     request.wLength = 4;
     request.pData = inBuff;
     err = device->DeviceRequest(&request, 5000, 0);
-    IOLog("CONTROL In status: %d : %02x%02x%02x%02x\n", err, inBuff[0], inBuff[1], inBuff[2], inBuff[3]);
+    //IOLog("CONTROL In status: %d : %02x%02x%02x%02x\n", err, inBuff[0], inBuff[1], inBuff[2], inBuff[3]);
     if (err != 0)
     {
         IOLog("There was an error: %d\n", err);
@@ -1294,7 +1307,7 @@ IOReturn OneWirelessGamingReceiver::message(UInt32 type,IOService *provider,void
 // Queue a read on a controller
 bool OneWirelessGamingReceiver::QueueRead(IOUSBPipe *pipe)
 {
-    IOLog("QueueRead on pipe %d\n", pipe);
+    //IOLog("QueueRead on pipe %d\n", pipe);
     
     IOUSBCompletion complete;
     IOReturn err;
@@ -1316,6 +1329,7 @@ bool OneWirelessGamingReceiver::QueueRead(IOUSBPipe *pipe)
     complete.action = _ReadComplete;
     complete.parameter = data;
     
+    
     err = pipe->Read(data->buffer, 0, 0, data->buffer->getLength(), &complete);
     if (err == kIOReturnSuccess)
         return true;
@@ -1332,7 +1346,7 @@ void OneWirelessGamingReceiver::ReadComplete(void *parameter, IOReturn status, U
 {
     IOLog("ReadComplete\n");
     WGRREAD *data = (WGRREAD*)parameter;
-    //we should read recursively only if we already started
+
     bool reread = true;
     IOUSBPipe *pipe = data != 0 ? data->pipe : 0;
     
@@ -1362,18 +1376,18 @@ void OneWirelessGamingReceiver::ReadComplete(void *parameter, IOReturn status, U
     data->buffer->release();
     IOFree(data, sizeof(WGRREAD));
     
-    if (reread)
+    if (reread && device != NULL)
     {
-        IOLog("Re-read set: %d\n", pipe);
+        //IOLog("Re-read set: %d\n", pipe);
         if (pipe->GetEndpoint()->number == inCPipe->GetEndpoint()->number)
         //IOSleep(1000);
         {
-            IOLog("Reading from inCPipe ref: %d\n", inCPipe);
+            //IOLog("Reading from inCPipe ref: %d\n", inCPipe);
             QueueRead(inCPipe);
         }
         else if (pipe->GetEndpoint()->number == inDevicePipe->GetEndpoint()->number)
         {
-            IOLog("Reading from inDevicePipe ref: %d\n", inDevicePipe);
+            //IOLog("Reading from inDevicePipe ref: %d\n", inDevicePipe);
             QueueRead(inDevicePipe);
         }
     }
@@ -1466,17 +1480,125 @@ void OneWirelessGamingReceiver::ProcessMessage(const unsigned char *data, int le
         IOLog("Received adapter button press (fireworks, rainbows and unicorns)");
         QueueWrite(outDevicePipe, GetFirmware("040000510000000000000000"));
         QueueWrite(outDevicePipe, GetFirmware("080081501411410040060f0000000000"));
-        QueueRead(inDevicePipe);
+        //QueueRead(inDevicePipe);
         QueueWrite(outDevicePipe, GetFirmware("1800825038c041000000dd100050f2110110019d289900000000000000000000"));
         QueueWrite(outDevicePipe, GetFirmware("080083501411410040063f6400000000"));
         
     }
     else if (data[0] == 0x48 && data[1] == 0x00 && data[2] == 0x08 && data[3] == 0x00)
     {
-        //TODO: set a signal that we are pairing (so we don't send ping messages)?
-        IOSleep(500);
-        IOLog("Received pairing signal!!!! freaking unikorns shooting rainbows!");
+
+        PairingParam *pparam = (PairingParam*)IOMalloc(sizeof(PairingParam));
+        thread_t thread;
         
+        pparam->parent = this;
+        
+        //TODO: set a signal that we are pairing (so we don't send ping messages)?
+        //IOSleep(500);
+        IOLog("Received pairing signal!!!! freaking unikorns shooting rainbows!\n");
+        
+        
+        
+        //extract controller and adapter IDs
+        //get controller id at 2E for 6 bytes
+        //get adapter id at 28 for 6 bytes
+        for (int i = 0; i < 6; i ++)
+        {
+            controllerId[i] = data[i + 0x2e];
+            adapterId[i] = data[i + 0x28];
+        }
+        IOLog("Extracted controllerId: %02x%02x%02x%02x%02x%02x\n",
+              controllerId[0],
+              controllerId[1],
+              controllerId[2],
+              controllerId[3],
+              controllerId[4],
+              controllerId[5]);
+        IOLog("Extracted adapterId: %02x%02x%02x%02x%02x%02x\n",
+              adapterId[0],
+              adapterId[1],
+              adapterId[2],
+              adapterId[3],
+              adapterId[4],
+              adapterId[5]);
+        
+        kernel_thread_start(&ProcessPairing, pparam, &thread);
+        thread_deallocate(thread);
+    }
+    else if (CompareSignature(data, "44000800"))
+    {
+        unsigned char msg[84];
+        IOBufferMemoryDescriptor* outBuffer;
+        
+        IOLog("Replying to 44000800\n");
+        
+        //sending third message
+        ::HexToBytes("4c000805a800002001ff3800000000000000000000000001500000007eed8d5c41e36245b4ea2d596245b4ea2d5930010000000000000000640031c60000dd100050f2110210012c999500000001000000000000", msg, 84*2);
+        
+        // controllerid at position 28
+        // adapterId at positions 34 and 40
+        for (int i = 0; i < 6 ; i++ )
+        {
+            msg[i + 28] = controllerId[i];
+            msg[i + 34] = adapterId[i];
+            msg[i + 40] = adapterId[i];
+        }
+        
+        outBuffer = IOBufferMemoryDescriptor::inTaskWithOptions(kernel_task, 0, 84);
+        outBuffer->writeBytes(0, msg, 84);
+        
+        QueueWrite(outDevicePipe, outBuffer);
+    }
+    else if (CompareSignature(data, "5000c04a"))
+    {
+        unsigned char msg[84];
+        IOBufferMemoryDescriptor* outBuffer;
+        
+        IOLog("Replying to 5000c04a\n");
+        //sending third message
+        ::HexToBytes("400000500000000000000000a000002001001f00000000000000000000000000880290007eed8d5c41e36245b4ea2d596245b4ea2d590000000000001e30040100e0ffff00000000", msg, 72*2);
+        
+        // controllerid at position 28
+        // adapterId at positions 34 and 40
+        for (int i = 0; i < 6 ; i++ )
+        {
+            msg[i + 0x24] = controllerId[i];
+            msg[i + 0x2a] = adapterId[i];
+            msg[i + 0x30] = adapterId[i];
+        }
+        
+        outBuffer = IOBufferMemoryDescriptor::inTaskWithOptions(kernel_task, 0, 72);
+        outBuffer->writeBytes(0, msg, 72);
+        
+        QueueWrite(outDevicePipe, outBuffer);
+    }
+    else
+    {
+        //TODO: we might act on expired waitlocks.. how do we figure out?
+        if (waitLock != NULL)
+        {
+            IOLog("waitLock si not null\n");
+        }
+        else
+        {
+            IOLog("waitLock is null\n");
+        }
+        
+        //check for locks
+        if (waitLock != NULL)
+            
+        {
+            if (waitLock->signature[0] == data[0] &&
+            waitLock->signature[1] == data[1] &&
+            waitLock->signature[2] == data[2] &&
+            waitLock->signature[3] == data[3])
+            {
+                IOLock * lock = waitLock->lock;
+                void *event = waitLock->lock;
+                waitLock = NULL;
+                IOLockWakeup(lock, event, false);
+            }
+        }
         
     }
 //#endif
@@ -1511,8 +1633,6 @@ OSNumber* OneWirelessGamingReceiver::newLocationIDNumber() const
     
     return OSNumber::withNumber(location, 32);
 }
-
-
 
 IOBufferMemoryDescriptor* OneWirelessGamingReceiver::GetFirmware(int index)
 {
@@ -1555,8 +1675,6 @@ IOBufferMemoryDescriptor* OneWirelessGamingReceiver::GetFirmware(int index)
             break;
     }
     
-    
-    
     outBuffer = IOBufferMemoryDescriptor::inTaskWithOptions(kernel_task, 0, hexLength/2);
     outBuffer->writeBytes(0, buff, hexLength/2);
     
@@ -1575,8 +1693,153 @@ IOBufferMemoryDescriptor* OneWirelessGamingReceiver::GetFirmware(const char inpu
     outBuffer = IOBufferMemoryDescriptor::inTaskWithOptions(kernel_task, 0, hexLength/2);
     outBuffer->writeBytes(0, buff, hexLength/2);
     
+    
     return outBuffer;
 }
 
+void OneWirelessGamingReceiver::ProcessPairing(void* parameter, wait_result_t waitResult)
+{
+    
+    unsigned char msg1[20];
+    unsigned char msg3[68];
+    IOBufferMemoryDescriptor* outBuffer;
+    PairingParam *data = (PairingParam*)parameter;
+    AbsoluteTime atime;
+    uint64_t deadline;
+    WaitSignature *waitSignature = (WaitSignature*)IOMalloc(sizeof(WaitSignature));
+    int lockStatus;
+    bool needToUnlock = false;
+    
+    
+    
+    nanoseconds_to_absolutetime(100000000ull, &atime);
+    clock_absolutetime_interval_to_deadline(atime, &deadline);
+    
+    IOLog("ATime is %llu\n", atime);
+    
+    if (IOLockTryLock(data->parent->pairingLock))
+    {
+        needToUnlock = true;
+        // Sending first message
+        //bytes 8-d are the controllerId
+        ::HexToBytes("0c008d5008184100ffffffffffff000000000000", msg1, 40);
+        for (int i = 0; i < 6; i++) 
+        {
+            msg1[i + 8] = data->parent->controllerId[i];
+        }
+        
+        outBuffer = IOBufferMemoryDescriptor::inTaskWithOptions(kernel_task, 0, 20);
+        outBuffer->writeBytes(0, msg1, 20);
+        
+        data->parent->QueueWrite(data->parent->outDevicePipe, outBuffer);
+        
+        //-- previous checkpoint
+        
+        //wait for confirmation message
+        //set the header that we are expecting
+        IOLog("Waiting for confirmation for first message\n");
+        ::HexToBytes("08000d4a", waitSignature->signature, 8);
+        waitSignature->lock = data->parent->pairingLock;
+        data->parent->waitLock = waitSignature;
+        lockStatus = IOLockSleepDeadline(data->parent->pairingLock, data->parent->pairingLock, deadline, THREAD_UNINT);
+        IOLog("Lock woke up\n");
+        
+        
+        if (lockStatus == THREAD_TIMED_OUT)
+        {
+            // TODO: MUST BE THREAD SAFE!
+            if (data->parent->waitLock == waitSignature)
+            {
+                data->parent->waitLock = NULL;
+            }
+            IOLog("Thread timed out. \n");
+        }
+        else if (lockStatus != THREAD_AWAKENED)
+        {
+            goto fail;
+        }
+        
+        
+        
+        // Sending second message
+        data->parent->QueueWrite(data->parent->outDevicePipe, data->parent->GetFirmware("0c003e500100000000000000401f000000000000"));
+        
+        //wait for confirmation message
+        ::HexToBytes("08000e4a", waitSignature->signature, 8);
+        waitSignature->lock = data->parent->pairingLock;
+        data->parent->waitLock = waitSignature;
+        lockStatus = IOLockSleepDeadline(data->parent->pairingLock, data->parent->pairingLock, deadline, THREAD_UNINT);
+        IOLog("Lock woke up\n");
+        
+        if (lockStatus == THREAD_TIMED_OUT)
+        {
+            // TODO: MUST BE THREAD SAFE!
+            if (data->parent->waitLock == waitSignature)
+            {
+                data->parent->waitLock = NULL;
+            }
+            IOLog("Thread timed out. \n");
+        }
+        else if (lockStatus != THREAD_AWAKENED)
+        {
+            goto fail;
+        }
+        IOLog("Confirmation received\n");
+        
+        
+        //sending third message
+        ::HexToBytes("3c000805a000002001ff2600000000000000000000000001100000007eed8d5c41e36245b4ea2d596245b4ea2d59f00000001001000f0000000000000000000000000000", msg3, 68*2);
+        
+        // controllerid at position 28
+        // adapterId at positions 34 and 40
+        for (int i = 0; i < 6 ; i++ )
+        {
+            msg3[i + 28] = data->parent->controllerId[i];
+            msg3[i + 34] = data->parent->adapterId[i];
+            msg3[i + 40] = data->parent->adapterId[i];
+        }
+        
+        outBuffer = IOBufferMemoryDescriptor::inTaskWithOptions(kernel_task, 0, 68);
+        outBuffer->writeBytes(0, msg3, 68);
+        
+        data->parent->QueueWrite(data->parent-> outDevicePipe, outBuffer);
+        
+        //wait for confirmation message
+        ::HexToBytes("3c000800", waitSignature->signature, 8);
+        waitSignature->lock = data->parent->pairingLock;
+        data->parent->waitLock = waitSignature;
+        lockStatus = IOLockSleepDeadline(data->parent->pairingLock, data->parent->pairingLock, deadline, THREAD_UNINT);
+        IOLog("Lock woke up\n");
+        
+        if (lockStatus == THREAD_TIMED_OUT)
+        {
+            // TODO: MUST BE THREAD SAFE!
+            if (data->parent->waitLock == waitSignature)
+            {
+                data->parent->waitLock = NULL;
+            }
+            IOLog("Thread timed out. \n");
+        }
+        else if (lockStatus != THREAD_AWAKENED)
+        {
+            goto fail;
+        }
+        IOLog("Confirmation received\n");
+        
+        IOLog("Done sending pairing commands.\n");
+    }
+    
+fail:
+    if (needToUnlock)
+    {
+        IOLockUnlock(data->parent->pairingLock);
+    }
+    
+    IOFree(data, sizeof(PairingParam));
+    IOFree(waitSignature, sizeof(WaitSignature));
 
-
+    //when all is said and done
+    //thread_deallocate(current_thread());
+    //thread_terminate(current_thread());
+     
+}
