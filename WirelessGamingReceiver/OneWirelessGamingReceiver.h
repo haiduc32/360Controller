@@ -78,6 +78,9 @@ private:
     unsigned char controllerId[6];
     unsigned char adapterId[6];
     
+    bool received5000c04a = false;
+    bool received4400c04a = false;
+    
     void waitWriteCompleted();
     void waitReadCompleted();
     

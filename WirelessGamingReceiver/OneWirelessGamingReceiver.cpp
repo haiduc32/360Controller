@@ -1223,6 +1223,7 @@ bool OneWirelessGamingReceiver::controlIn(UInt8 bRequest, UInt16 wValue, UInt16 
         if (inBuff[i] != expectedBuff[i])
         {
             IOLog("Expected control value did not match! Retrying.\n");
+            //IOLog("Expected %02x%02x%02x%02x but received %02x%02x%02x%02x\n", expectedBuff[0], expectedBuff[1], expectedBuff[2], expectedBuff[3], inBuff[0], inBuff[1], inBuff[2], inBuff[3]);
         }
     }
     //TODO: compare inBuff with checkControl and print an error message plus return false
@@ -1551,12 +1552,184 @@ void OneWirelessGamingReceiver::ProcessMessage(const unsigned char *data, int le
     }
     else if (CompareSignature(data, "5000c04a"))
     {
-        unsigned char msg[84];
+        unsigned char msg[72];
         IOBufferMemoryDescriptor* outBuffer;
         
-        IOLog("Replying to 5000c04a\n");
-        //sending third message
-        ::HexToBytes("400000500000000000000000a000002001001f00000000000000000000000000880290007eed8d5c41e36245b4ea2d596245b4ea2d590000000000001e30040100e0ffff00000000", msg, 72*2);
+        //should be responding to this one only once!
+        if (!received5000c04a)
+        {
+            received5000c04a = true;
+            IOLog("Replying to 5000c04a\n");
+        
+            ::HexToBytes("400000500000000000000000a000002001001f00000000000000000000000000880290007eed8d5c41e36245b4ea2d596245b4ea2d590000000000001e30040100e0ffff00000000", msg, 72*2);
+        
+            // controllerid at position 28
+            // adapterId at positions 34 and 40
+            for (int i = 0; i < 6 ; i++ )
+            {
+                msg[i + 0x24] = controllerId[i];
+                msg[i + 0x2a] = adapterId[i];
+                msg[i + 0x30] = adapterId[i];
+            }
+        
+            outBuffer = IOBufferMemoryDescriptor::inTaskWithOptions(kernel_task, 0, 72);
+            outBuffer->writeBytes(0, msg, 72);
+        
+            QueueWrite(outDevicePipe, outBuffer);
+        }
+    }
+    else if (CompareSignature(data, "5c00c04a"))
+    {
+        //TODO: update sequence number
+        unsigned char msg[68];
+        IOBufferMemoryDescriptor* outBuffer;
+        
+        IOLog("Replying to 5c00c04a\n");
+        
+        ::HexToBytes("3c0000500000000000000000a000002001001e00000000000000000000000000880290007eed8d5c41e36245b4ea2d596245b4ea2d590000000000000420010000000000", msg, 68*2);
+        
+        // controllerid at position 28
+        // adapterId at positions 34 and 40
+        for (int i = 0; i < 6 ; i++ )
+        {
+            msg[i + 0x24] = controllerId[i];
+            msg[i + 0x2a] = adapterId[i];
+            msg[i + 0x30] = adapterId[i];
+        }
+
+        outBuffer = IOBufferMemoryDescriptor::inTaskWithOptions(kernel_task, 0, 68);
+        outBuffer->writeBytes(0, msg, 68);
+        
+        QueueWrite(outDevicePipe, outBuffer);
+    }
+    else if (CompareSignature(data, "7c00c04a") && data[0x7c] == 0x00 && data[0x7d] == 0x02)
+    {
+        //TODO: update sequence number
+        unsigned char msg[80];
+        IOBufferMemoryDescriptor* outBuffer;
+        
+        IOLog("Replying to 7c00c04a\n");
+        
+        ::HexToBytes("480000500000000000000000a000002001002700000000000000000000000000880290007eed8d5c41e36245b4ea2d596245b4ea2d59000000000000012001090004203a0000009c00e0ffff00000000", msg, 80*2);
+        
+        // controllerid at position 28
+        // adapterId at positions 34 and 40
+        for (int i = 0; i < 6 ; i++ )
+        {
+            msg[i + 0x24] = controllerId[i];
+            msg[i + 0x2a] = adapterId[i];
+            msg[i + 0x30] = adapterId[i];
+        }
+        
+        outBuffer = IOBufferMemoryDescriptor::inTaskWithOptions(kernel_task, 0, 80);
+        outBuffer->writeBytes(0, msg, 80);
+        
+        QueueWrite(outDevicePipe, outBuffer);
+    }
+    else if (CompareSignature(data, "6c00c04a"))
+    {
+        unsigned char msg[80];
+        IOBufferMemoryDescriptor* outBuffer;
+        unsigned char seq = data[0x42];
+        
+        IOLog("Replying to 6c00c04a\n");
+        
+        ::HexToBytes("480000500000000000000000a000002001002700000000000000000000000000880290007eed8d5c41e36245b4ea2d596245b4ea2d5900000000000001200309000420d60000000000e0ffff00000000", msg, 80*2);
+        
+        //update the sequence
+        msg[0x3e] = seq;
+        
+        // controllerid at position 28
+        // adapterId at positions 34 and 40
+        for (int i = 0; i < 6 ; i++ )
+        {
+            msg[i + 0x24] = controllerId[i];
+            msg[i + 0x2a] = adapterId[i];
+            msg[i + 0x30] = adapterId[i];
+        }
+        
+        outBuffer = IOBufferMemoryDescriptor::inTaskWithOptions(kernel_task, 0, 80);
+        outBuffer->writeBytes(0, msg, 80);
+        
+        QueueWrite(outDevicePipe, outBuffer);
+    }
+    else if (CompareSignature(data, "4400c04a"))
+    {
+        unsigned char msg[72];
+        IOBufferMemoryDescriptor* outBuffer;
+        
+        IOLog("Replying to 4400c04a\n");
+        
+        if (!received4400c04a)
+        {
+            received4400c04a = true;
+        
+        
+            //work-arround - don't want any replies to the 5000c04a message after this point
+            received5000c04a = true;
+            
+            //this will send 2 replies
+            
+            ::HexToBytes("400000500000000000000000a000002001001f00000000000000000000000000880290007eed8d5c41e36245b4ea2d596245b4ea2d590000000000000520020100e0ffff00000000", msg, 72*2);
+            
+            // controllerid at position 28
+            // adapterId at positions 34 and 40
+            for (int i = 0; i < 6 ; i++ )
+            {
+                msg[i + 0x24] = controllerId[i];
+                msg[i + 0x2a] = adapterId[i];
+                msg[i + 0x30] = adapterId[i];
+            }
+            
+            outBuffer = IOBufferMemoryDescriptor::inTaskWithOptions(kernel_task, 0, 72);
+            outBuffer->writeBytes(0, msg, 72);
+            
+            QueueWrite(outDevicePipe, outBuffer);
+            
+            ::HexToBytes("400000500000000000000000a000002001002100000000000000000000000000880290007eed8d5c41e36245b4ea2d596245b4ea2d590000000000000a200303000114ff00000000", msg, 72*2);
+            
+            // controllerid at position 28
+            // adapterId at positions 34 and 40
+            for (int i = 0; i < 6 ; i++ )
+            {
+                msg[i + 0x24] = controllerId[i];
+                msg[i + 0x2a] = adapterId[i];
+                msg[i + 0x30] = adapterId[i];
+            }
+            
+            outBuffer = IOBufferMemoryDescriptor::inTaskWithOptions(kernel_task, 0, 72);
+            outBuffer->writeBytes(0, msg, 72);
+            
+            QueueWrite(outDevicePipe, outBuffer);
+            //::HexToBytes("400000500000000000000000a000002001001f00000000000000000000000000880290007eed8d5c41e36245b4ea2d596245b4ea2d590000000000001e30040100e0ffff00000000", msg, 72*2);
+            ::HexToBytes("400000500000000000000000a000002001001f00000000000000000000000000880290007eed8d5c41e36245b4ea2d596245b4ea2d590000000000001e3004010000000000000000", msg, 72*2);
+            
+            // controllerid at position 28
+            // adapterId at positions 34 and 40
+            for (int i = 0; i < 6 ; i++ )
+            {
+                msg[i + 0x24] = controllerId[i];
+                msg[i + 0x2a] = adapterId[i];
+                msg[i + 0x30] = adapterId[i];
+            }
+            
+            outBuffer = IOBufferMemoryDescriptor::inTaskWithOptions(kernel_task, 0, 72);
+            outBuffer->writeBytes(0, msg, 72);
+            
+            QueueWrite(outDevicePipe, outBuffer);
+        }
+        
+    }
+    else if (CompareSignature(data, "4c00c04a"))
+    {
+        unsigned char msg[72];
+        IOBufferMemoryDescriptor* outBuffer;
+        
+        IOLog("Replying to 4c00c04a\n");
+        
+        //this will send 2 replies
+        
+        ::HexToBytes("400000500000000000000000a000002001001f00000000000000000000000000880290007eed8d5c41e36245b4ea2d596245b4ea2d590000000000001e30050101e0ffff00000000", msg, 72*2);
         
         // controllerid at position 28
         // adapterId at positions 34 and 40
